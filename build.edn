@@ -1,0 +1,14 @@
+{
+ :main mobile.core
+
+ :output-to "target/main.js"
+ :output-dir "target"
+
+ :language-out :es6
+
+ ;; :target       :nodejs
+
+ ;; :foreign-libs [{:file "src"
+ ;;                 :module-type :es6}]
+
+ }
