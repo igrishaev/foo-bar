@@ -5,6 +5,7 @@
 
    [mobile.log :as log :include-macros true]
 
+   mobile.aaa
    mobile.pages.nav
 
    [reagent.core :as r]))

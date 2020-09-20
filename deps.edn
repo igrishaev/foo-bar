@@ -22,6 +22,8 @@
 
         com.google.guava/guava {:mvn/version "29.0-jre"}
 
+        re-frame {:mvn/version "1.1.1"}
+
         io.vouch/krell {:git/url "https://github.com/vouch-opensource/krell.git"
                         :sha "5080e776f256ee497874c2bbe680a5280c1a2921"}
 
