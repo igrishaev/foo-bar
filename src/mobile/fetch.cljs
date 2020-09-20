@@ -16,22 +16,23 @@
       (js->clj :keywordize-keys true)))
 
 
+;; TODO: keep names
 (defn clj->json [data]
   (some-> data clj->js js/JSON.stringify))
 
 
 (defn fetch [url & [opt]]
 
-  (let [{:keys [method data]} opt
+  (let [{:keys [method body]} opt
 
         opt (cond-> opt
 
               (nil? method)
               (assoc :method "GET")
 
-              (some? data)
+              (some? body)
               (->
-               (update :data clj->json)
+               (update :body clj->json)
                (assoc-in [:headers :content-type]
                          "application/json")))]
 
@@ -56,7 +57,7 @@
                  (.then
                   (fn [payload]
                     (if json?
-                      (assoc result :data
+                      (assoc result :body
                              (js->clj payload
                                       :keywordize-keys true))
                       (assoc result :text payload)))))))))))

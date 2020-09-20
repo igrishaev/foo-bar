@@ -3,7 +3,7 @@
    [mobile.fetch :as fetch]))
 
 
-(def base-url "http://...")
+(def base-url "http://192.168.31.102/rpc")
 
 (def max-id 1000)
 

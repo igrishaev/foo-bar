@@ -2,9 +2,19 @@
 
 
 (defmacro log [level message]
-  `(let [logger# (-> ::_ namespace goog.log/getLogger)]
-     (goog.log/log logger# ~level ~message)))
+  `(goog.log/log
+    (-> *ns* str goog.log/getLogger)
+    ~level
+    ~message))
 
 
 (defmacro info [message]
-  `(log "info" ~message))
+  `(log goog.debug.Logger.Level.INFO ~message))
+
+
+(defmacro warn [message]
+  `(log goog.debug.Logger.Level.WARNING ~message))
+
+
+(defmacro error [message]
+  `(log goog.debug.Logger.Level.SEVERE ~message))

@@ -3,6 +3,8 @@
    [mobile.rn :as rn]
    [mobile.async-storage :as as]
 
+   [mobile.log :as log :include-macros true]
+
    mobile.pages.nav
 
    [reagent.core :as r]))

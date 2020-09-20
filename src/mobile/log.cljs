@@ -1,8 +1,7 @@
 (ns mobile.log
-  (:import (goog.log
-            Level
-            LogRecord
-            Logger))
+  (:import [goog.log Level LogRecord Logger]
+           [goog.debug Console])
+
   (:require
 
    [goog.debug.Logger :as Logger]
@@ -14,9 +13,6 @@
    [goog.debug.LogManager :as LogManager]
 
    [cljs.pprint :as pprint]))
-
-
-
 
 
 

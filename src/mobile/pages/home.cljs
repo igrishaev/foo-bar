@@ -3,7 +3,7 @@
    [mobile.rn :as rn]
    [mobile.fetch :as fetch]
 
-   ;; [mobile.log :as log]
+   [mobile.log :as log :include-macros true]
 
    [reagent.core :as r]))
 
