@@ -4,6 +4,9 @@
    [datascript.core :as d]))
 
 
+(def path-tx-report [:tx-report])
+
+
 (def conn
   (d/create-conn
    {:foo/name
@@ -12,9 +15,9 @@
 
 
 (rf/reg-event-db
- :save-db
- (fn [db [_ ds-database]]
-   (assoc-in db [:ds-database] ds-database)))
+ ::tx-report
+ (fn [db [_ tx-report]]
+   (assoc-in db path-tx-report tx-report)))
 
 
 (rf/reg-event-db
@@ -25,30 +28,54 @@
 
 
 (defn on-db-change
-  [{:keys [db-before
+  [{:as tx-report
+    :keys [db-before
            db-after
            tx-data
            tempids
            tx-meta]}]
-  (rf/dispatch [:save-db db-after]))
+  (rf/dispatch [::tx-report tx-report]))
 
 
 (d/listen! conn on-db-change)
 
+#_
+(rf/reg-cofx
+ :ds
+ (fn [coeffects _]
+   (assoc coeffects :ds @conn)))
+
+
+#_
+(rf/reg-sub
+ ::datomic
+ (fn [db _]
+   @conn))
+
 
 (rf/reg-sub
  :test-query
- (fn [{:as db
-       :keys [ds-database]} [_]]
 
-   (js/console.log "--------------")
-   (js/console.log (pr-str ds-database))
+#_
+ (fn [datomic]
+   (js/console.log (pr-str datomic))
 
    (d/q '[:find ?e ?name
           :in $
           :where
           [?e :foo/name ?name]]
-        ds-database)))
+        datomic))
+
+ (fn [db _]
+
+   (let [tx-report (get-in db path-tx-report)
+         {:keys [db-after]} tx-report]
+
+     (d/q '[:find ?e ?name
+            :in $
+            :where
+            [?e :foo/name ?name]]
+          db-after))))
 
 
 (rf/reg-event-fx
