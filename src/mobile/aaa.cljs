@@ -80,6 +80,17 @@
 
 (rf/reg-event-fx
  :add-data
- (fn [ctx [_ ]]
-   (d/transact! conn [{:foo/name (str (rand-int 999))}])
-   nil))
+ (fn [ctx [_]]
+
+   {:tx-data [{:foo/name (str (rand-int 999))}]}
+
+   ;; (d/transact! conn [{:foo/name (str (rand-int 999))}])
+   ;; nil
+
+   ))
+
+
+(rf/reg-fx
+  :tx-data
+  (fn [tx-data]
+    (d/transact! conn tx-data)))
