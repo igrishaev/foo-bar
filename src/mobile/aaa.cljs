@@ -15,7 +15,7 @@
 
 
 (rf/reg-event-db
- ::tx-report
+ :tx-report
  (fn [db [_ tx-report]]
    (assoc-in db path-tx-report tx-report)))
 
@@ -34,7 +34,7 @@
            tx-data
            tempids
            tx-meta]}]
-  (rf/dispatch [::tx-report tx-report]))
+  (rf/dispatch [:tx-report tx-report]))
 
 
 (d/listen! conn on-db-change)
@@ -53,41 +53,46 @@
    @conn))
 
 
+
+(rf/reg-sub
+ :db-after
+ (fn [db _]
+   (-> db
+       (get-in path-tx-report)
+       (get :db-after))))
+
+
 (rf/reg-sub
  :test-query
-
-#_
- (fn [datomic]
-   (js/console.log (pr-str datomic))
-
+ :<- [:db-after]
+ (fn [db-after [_ ]]
    (d/q '[:find ?e ?name
           :in $
           :where
           [?e :foo/name ?name]]
-        datomic))
+        db-after)))
 
- (fn [db _]
 
-   (let [tx-report (get-in db path-tx-report)
-         {:keys [db-after]} tx-report]
+(rf/reg-sub
+ :pull
+ :<- [:db-after]
+ (fn [db-after [_ selector pattern]]
+   (when db-after
+     (d/pull db-after (or pattern '[*]) selector))))
 
-     (d/q '[:find ?e ?name
-            :in $
-            :where
-            [?e :foo/name ?name]]
-          db-after))))
+
+(rf/reg-sub
+ :pull-many
+ :<- [:db-after]
+ (fn [db-after [_ selectors pattern]]
+   (when db-after
+     (d/pull-many db-after (or pattern '[*]) selectors))))
 
 
 (rf/reg-event-fx
  :add-data
  (fn [ctx [_]]
-
-   {:tx-data [{:foo/name (str (rand-int 999))}]}
-
-   ;; (d/transact! conn [{:foo/name (str (rand-int 999))}])
-   ;; nil
-
-   ))
+   {:tx-data [{:foo/name (str (rand-int 9))}]}))
 
 
 (rf/reg-fx

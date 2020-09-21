@@ -12,7 +12,9 @@
 
 (defn page [{:keys [navigation]}]
 
-  (let [aaa @(rf/subscribe [:test-query])]
+  (let [aaa @(rf/subscribe [:test-query :some-query])
+
+        foo @(rf/subscribe [:pull 8])]
 
     #_(js/console.log (pr-str aaa))
 
@@ -26,7 +28,7 @@
                 :margin-bottom 20
                 :text-align "center"}}
 
-      (-> aaa seq rand-nth str)
+      (-> foo pr-str)
 
       ]
      [rn/touchable-highlight
