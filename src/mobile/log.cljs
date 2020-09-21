@@ -4,6 +4,11 @@
 
   (:require
 
+   [re-frame.loggers :as rf.log]
+
+   [goog.string.format]
+   [goog.string :as gstring]
+
    [goog.debug.Logger :as Logger]
    [goog.debug.Logger.Level :as Level]
    [goog.debug.Console :as Console]
@@ -15,6 +20,7 @@
    [cljs.pprint :as pprint]))
 
 
+(def format gstring/format)
 
 
 (defn ->google-level
@@ -24,10 +30,10 @@
     :all
     Level.ALL
 
-    (:error :severe)
+    (:err :error :severe)
     Level.SEVERE
 
-    :warning
+    (:warn :warning)
     Level.WARNING
 
     :info
@@ -37,18 +43,15 @@
     Level.INFO))
 
 
-
-
 (defn get-logger
   [name]
 
   (let [^Logger logger (log/getLogger name)]
-    (fn [^Keyword level ^js/String template & args]
+    (fn [^Keyword level
+         ^js/String template
+         & args]
       (let [^Level level (->google-level level)]
-        (log/log logger level template
-
-
-                 #_
+        (log/log logger level
                  (apply format template args))))))
 
 
@@ -60,3 +63,20 @@
      (println "--------------")
      (pprint/pprint data)
      (println "--------------"))))
+
+
+(rf.log/set-loggers!
+ {:error
+  (fn [& args]
+    (debug (cons :error args)))
+
+  :log
+  (fn [& args]
+    (debug (cons :log args)))
+
+  :warn
+  (fn [& args]
+    (debug (cons :warn args)))})
+
+
+(.setCapturing (Console.) true)

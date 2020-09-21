@@ -3,7 +3,7 @@
 
 (defmacro log [level message]
   `(goog.log/log
-    (-> *ns* str goog.log/getLogger)
+    (-> '_ namespace goog.log/getLogger)
     ~level
     ~message))
 

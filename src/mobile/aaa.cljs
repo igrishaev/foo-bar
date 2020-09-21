@@ -1,7 +1,14 @@
 (ns mobile.aaa
   (:require
+
+   [mobile.log :as log]
+
+
    [re-frame.core :as rf]
    [datascript.core :as d]))
+
+
+(def log (-> ::_ namespace log/get-logger))
 
 
 (def path-tx-report [:tx-report])
@@ -117,5 +124,6 @@
  (rf/->interceptor
   :id :event-tracker
   :before (fn [context]
-            (js/console.log (-> context :coeffects :event pr-str))
+            (log :debug "Re-frame event: %s"
+                 (-> context :coeffects :event pr-str))
             context)))
