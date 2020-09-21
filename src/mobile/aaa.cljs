@@ -23,7 +23,6 @@
 (rf/reg-event-db
  :save-simple
  (fn [db [_ ]]
-   (js/console.log (pr-str :save-simple))
    (assoc-in db [:foo] (rand-int 9999))))
 
 
@@ -99,3 +98,24 @@
   :tx-data
   (fn [tx-data]
     (d/transact! conn tx-data)))
+
+#_
+
+(def event-collector
+  (re-frame.core/->interceptor
+   :id      :event-collector
+   :before  (fn [context]
+              (swap! event-store keep-last-20 (re-frame.core/get-coeffect context :event))
+              context)))
+
+;; register this global interceptor early in program's boot process,
+;; using re-frame's API
+#_
+(re-frame.core/reg-global-interceptor event-collector)
+
+(rf/reg-global-interceptor
+ (rf/->interceptor
+  :id :event-tracker
+  :before (fn [context]
+            (js/console.log (-> context :coeffects :event pr-str))
+            context)))
