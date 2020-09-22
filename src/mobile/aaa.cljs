@@ -1,8 +1,6 @@
 (ns mobile.aaa
   (:require
-
-   [mobile.log :as log]
-
+   [RN.log :as log]
 
    [re-frame.core :as rf]
    [datascript.core :as d]))

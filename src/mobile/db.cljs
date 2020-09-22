@@ -1,8 +1,5 @@
 (ns mobile.db
-  (:require-macros
-   [mobile.log :as log])
   (:require
-   [mobile.log :as log]
    [datascript.core :as d]))
 
 

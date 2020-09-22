@@ -1,10 +1,9 @@
-(ns mobile.async-storage
+(ns RN.async-storage
   (:require
    [cljs.reader :as reader]
 
    ["@react-native-community/async-storage"
-    :refer [default]
-    :rename {default AsyncStorage}]))
+    :refer [default] :rename {default AsyncStorage}]))
 
 
 (def serialize pr-str)

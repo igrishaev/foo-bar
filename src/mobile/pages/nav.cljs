@@ -1,6 +1,6 @@
 (ns mobile.pages.nav
   (:require
-   [mobile.rn :as rn]
+   [RN.nav :as nav]
 
    mobile.pages.home
    mobile.pages.about
@@ -10,11 +10,11 @@
 
 (defn page []
 
-  (let [[stack-navigator stack-screen]
-        (rn/create-stack-navigator)]
+  (let [{:keys [stack-navigator stack-screen]}
+        (nav/create-stack-navigator)]
 
-    [rn/safe-area-provider
-     [rn/navigation-container
+    [nav/safe-area-provider
+     [nav/navigation-container
       [stack-navigator
        [stack-screen
         {:name "AAAA"

@@ -1,4 +1,4 @@
-(ns mobile.log)
+(ns RN.log)
 
 
 (defmacro log [level message]

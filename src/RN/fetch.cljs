@@ -1,6 +1,4 @@
-(ns mobile.fetch
-  (:require
-   [clojure.string :as str]))
+(ns RN.fetch)
 
 
 (defn response-json? [headers]

@@ -1,6 +1,6 @@
 (ns mobile.rpc
   (:require
-   [mobile.fetch :as fetch]))
+   [RN.fetch :as fetch]))
 
 
 (def base-url "http://192.168.31.102/rpc")

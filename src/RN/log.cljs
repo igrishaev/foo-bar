@@ -1,4 +1,4 @@
-(ns mobile.log
+(ns RN.log
   (:import [goog.log Level LogRecord Logger]
            [goog.debug Console])
 
@@ -65,6 +65,7 @@
      (println "--------------"))))
 
 
+#_
 (rf.log/set-loggers!
  {:error
   (fn [& args]
@@ -79,4 +80,5 @@
     (debug (cons :warn args)))})
 
 
+#_
 (.setCapturing (Console.) true)

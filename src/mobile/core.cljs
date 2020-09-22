@@ -1,9 +1,8 @@
 (ns mobile.core
   (:require
-   [mobile.rn :as rn]
-   [mobile.async-storage :as as]
-
-   [mobile.log :as log :include-macros true]
+   [RN.core :as rn]
+   [RN.async-storage :as as]
+   [RN.log :as log :include-macros true]
 
    mobile.aaa
    mobile.pages.nav

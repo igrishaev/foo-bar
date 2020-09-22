@@ -1,7 +1,7 @@
 (ns mobile.dev
   (:require
-   [mobile.fetch :as fetch]
-   [mobile.log :as log :include-macros true]))
+   [RN.fetch :as fetch]
+   [RN.log :as log :include-macros true]))
 
 
 #_

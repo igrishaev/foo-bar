@@ -1,6 +1,6 @@
 (ns mobile.pages.about
   (:require
-   [mobile.rn :as rn]
+   [RN.core :as rn]
 
    [reagent.core :as r]))
 

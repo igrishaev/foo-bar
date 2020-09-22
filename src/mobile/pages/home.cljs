@@ -1,12 +1,10 @@
 (ns mobile.pages.home
   (:require
+   [RN.core :as rn]
+   [RN.fetch :as fetch]
+   [RN.log :as log :include-macros true]
+
    [re-frame.core :as rf]
-
-   [mobile.rn :as rn]
-   [mobile.fetch :as fetch]
-
-   [mobile.log :as log :include-macros true]
-
    [reagent.core :as r]))
 
 
