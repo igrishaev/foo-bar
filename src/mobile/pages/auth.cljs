@@ -4,20 +4,27 @@
    [RN.fetch :as fetch]
    [RN.log :as log :include-macros true]
 
+   [mobile.style :as style]
+
    [re-frame.core :as rf]
    [reagent.core :as r]))
 
 
 (defn page [{:keys [navigation]}]
 
-  [rn/view {:style
-            {:flex-direction "column"
-             :margin 40
-             :align-items "center"}}
+  [rn/view {:style style/container}
+
+
+   #_
+   [rn/view {:style {:flex 1
+                     :flexDirection "row"
+                     :alignItems "stretch"}}]
+
 
    [rn/text-input
-    {:style {:height 160
-             :width 500}
+    {:style style/input
+     :placeholder "Email address"
+     :keyboardType "email-address"
      :on-change-text
      (fn [text]
        (rf/dispatch [:auth-input-email text]))}]
