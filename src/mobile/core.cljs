@@ -4,24 +4,27 @@
    [RN.async-storage :as as]
    [RN.log :as log :include-macros true]
 
-   mobile.aaa
-   mobile.pages.nav
+   mobile.subs
+   mobile.events
+
+   ;; mobile.pages.main
+   mobile.pages.home
+   mobile.pages.auth
 
    [reagent.core :as r]))
 
 
+(def main-page mobile.pages.auth/page)
+
+
 (defn App []
-  (r/as-element [mobile.pages.nav/page]))
+  (r/as-element [main-page]))
 
 
 (defn init []
   (.registerComponent rn/app-registry
                       "FooBar"
                       (fn [] App)))
-
-
-#_
-(init)
 
 
 (defn ^:export -main [& args]
