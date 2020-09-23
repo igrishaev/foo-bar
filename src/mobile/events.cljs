@@ -5,7 +5,6 @@
 
    [mobile.spec :as spec]
    [mobile.const :as c]
-   [mobile.datascript :as ds]
 
    [re-frame.core :as rf]
    [datascript.core :as d]
@@ -19,24 +18,45 @@
    (assoc-in db c/path-tx-report tx-report)))
 
 
-(rf/reg-fx
-  :tx-data
-  (fn [tx-data]
-    (d/transact! ds/conn tx-data)))
-
-
 (rf/reg-event-db
  :auth-input-email
  (fn [db [_ text]]
    (assoc-in db c/path-auth-input-email text)))
 
 
+(rf/ref-event-fx
+ :pin-has-been-sent
+ (fn [_ [_ ]]
+   #_
+   (.navigate navigation "pin")
+
+
+   )
+ )
+
+
+(rf/reg-event-fx
+ :auth-submit-ok
+ (fn [_ [_ scope]]
+   {:rpc {:method "auth/request-pin"
+          :params {:email "ivan@grishaev.me"}
+          :event-ok [:pin-has-been-sent scope]
+          :event-err [:rpc-error]
+          :event-catch [:rpc-failed]}}))
+
+
 (rf/reg-event-fx
  :auth-submit
- (fn [{:keys [db]} [_ navigation]]
+ (fn [{:keys [db]} [_ scope]]
    (let [email (get-in db c/path-auth-input-email)]
      (if (s/valid? ::spec/form-auth {:email email})
+
+       {:dispatch [:auth-submit-ok scope]}
+
+
+       #_
        (.navigate navigation "pin")
+
        (alert/alert
         "Wrong email"
         "We could not recognize an email address in your input.")))))

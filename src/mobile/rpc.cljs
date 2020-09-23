@@ -3,18 +3,19 @@
    [RN.fetch :as fetch]))
 
 
-(def base-url "http://192.168.31.102/rpc")
+(def base-url "http://192.168.31.102:8088/rpc")
+
 
 (def max-id 1000)
 
 
-(defn rpc-call
+(defn call
 
   [{:keys [token
            method
            params]}]
 
-  (let [id (rand-id max-id)
+  (let [id (rand-int max-id)
 
         data (cond-> {:jsonrpc "2.0"
                       :method method
@@ -23,11 +24,13 @@
                params
                (assoc :params params))
 
-        opt (cond-> {:method :POST
+        opt (cond-> {:method "POST"
                      :data data}
 
               token
               (assoc-in [:headers :authorization]
-                        (format "Bearer %s" token)))]
+                        (str "Bearer " token)))]
+
+    (js/console.log (pr-str opt))
 
     (fetch/fetch base-url opt)))

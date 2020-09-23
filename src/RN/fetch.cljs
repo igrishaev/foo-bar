@@ -21,16 +21,16 @@
 
 (defn fetch [url & [opt]]
 
-  (let [{:keys [method body]} opt
+  (let [{:keys [method data]} opt
 
         opt (cond-> opt
 
               (nil? method)
               (assoc :method "GET")
 
-              (some? body)
+              (some? data)
               (->
-               (update :body clj->json)
+               (assoc :body (clj->json data))
                (assoc-in [:headers :content-type]
                          "application/json")))]
 
@@ -55,7 +55,7 @@
                  (.then
                   (fn [payload]
                     (if json?
-                      (assoc result :body
+                      (assoc result :data
                              (js->clj payload
                                       :keywordize-keys true))
                       (assoc result :text payload)))))))))))

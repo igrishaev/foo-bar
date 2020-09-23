@@ -26,9 +26,7 @@
              :borderBottomWidth 2
              :borderBottomColor "black"
              :paddingLeft 20
-             :paddingRight 20
-
-             }
+             :paddingRight 20}
      :autoCapitalize "none"
      :placeholder "Email address"
      :keyboardType "email-address"
@@ -40,7 +38,9 @@
     {:style {:marginTop 40
              :height 50}
      :on-press (fn []
-                 (rf/dispatch [:auth-submit navigation]))}
+                 (rf/dispatch
+                  [:auth-submit
+                   {:navigation navigation}]))}
 
     [rn/text {:style {:fontSize 24
                       :textAlign "center"}}

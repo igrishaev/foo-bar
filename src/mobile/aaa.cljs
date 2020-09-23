@@ -118,6 +118,7 @@
 #_
 (re-frame.core/reg-global-interceptor event-collector)
 
+#_
 (rf/reg-global-interceptor
  (rf/->interceptor
   :id :event-tracker

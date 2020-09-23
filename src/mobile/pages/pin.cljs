@@ -26,9 +26,7 @@
              :borderBottomWidth 2
              :borderBottomColor "black"
              :paddingLeft 20
-             :paddingRight 20
-
-             }
+             :paddingRight 20}
      :autoCapitalize "none"
      :placeholder "PIN"
      :textAlign "center"

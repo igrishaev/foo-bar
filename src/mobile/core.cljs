@@ -6,6 +6,7 @@
 
    mobile.subs
    mobile.events
+   mobile.effects
 
    ;; mobile.pages.main
    mobile.pages.home

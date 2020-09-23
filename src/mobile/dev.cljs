@@ -1,24 +1,37 @@
 (ns mobile.dev
   (:require
    [RN.fetch :as fetch]
-   [RN.log :as log :include-macros true]))
+   [RN.log :as log :include-macros true]
+
+   [mobile.rpc :as rpc]
+
+   ))
 
 
 #_
-(.. (fetch "http://192.168.31.102:8088/rpc"
-           {:method "POST"
-            :body {:jsonrpc "2.0"
-                   :method "auth/request-pin"
-                   :params {:email "ivan@grishaev.me"}
-                   :id 99}})
+(.. (rpc/call {:method "auth/request-pin"
+               :params {:email "ivan@grishaev.me"}})
+    (then println)
+    (catch println)
+    )
+
+
+
+#_
+(.. (fetch/fetch "http://192.168.31.102:8088/rpc"
+                 {:method "POST"
+                  :data {:jsonrpc "2.0"
+                         :method "auth/request-pin"
+                         :params {:email "ivan@grishaev.me"}
+                         :id 99}})
     (then println)
     )
 
 
 #_
-(.. (fetch "http://192.168.31.102:8088/rpc"
+(.. (fetch/fetch "http://192.168.31.102:8088/rpc"
            {:method "POST"
-            :body {:jsonrpc "2.0"
+            :data {:jsonrpc "2.0"
                    :method "auth/obtain-token"
                    :params {:pin "1075"}
                    :id 99}})
@@ -43,12 +56,12 @@
 
 
 #_
-(.. (fetch "http://192.168.31.102:8088/rpc"
+(.. (fetch/fetch "http://192.168.31.102:8088/rpc"
            {:method "POST"
             :headers
             {:authorization
              "Bearer b87fb76e-24ff-401c-89cc-43bfab31ec0f"}
-            :body {:jsonrpc "2.0"
+            :data {:jsonrpc "2.0"
                    :method "auth/user-info"
                    :id 99}})
     (then println)
