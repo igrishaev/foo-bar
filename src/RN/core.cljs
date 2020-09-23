@@ -40,6 +40,9 @@
 (def text-input
   (r/adapt-react-class rn/TextInput))
 
+(def touchable-opacity
+  (r/adapt-react-class rn/TouchableOpacity))
+
 (def touchable-highlight
   (r/adapt-react-class rn/TouchableHighlight))
 

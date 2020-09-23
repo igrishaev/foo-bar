@@ -1,12 +1,16 @@
 (ns mobile.events
   (:require
    [RN.log :as log :include-macros true]
+   [RN.alert :as alert]
 
+   [mobile.spec :as spec]
    [mobile.const :as c]
    [mobile.datascript :as ds]
 
    [re-frame.core :as rf]
-   [datascript.core :as d]))
+   [datascript.core :as d]
+
+   [clojure.spec.alpha :as s]))
 
 
 (rf/reg-event-db
@@ -29,6 +33,10 @@
 
 (rf/reg-event-fx
  :auth-submit
- (fn [{:keys [db]} [_ text]]
+ (fn [{:keys [db]} [_ navigation]]
    (let [email (get-in db c/path-auth-input-email)]
-     (js/console.log email))))
+     (if (s/valid? ::spec/form-auth {:email email})
+       (.navigate navigation "pin")
+       (alert/alert
+        "Wrong email"
+        "We could not recognize an email address in your input.")))))

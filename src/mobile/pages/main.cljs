@@ -19,6 +19,17 @@
      [nav/navigation-container
       [stack-navigator
 
+       [stack-screen
+        {:name "auth"
+         :component mobile.pages.auth/Page
+         :options #js {:title "Your email"}}]
+
+       [stack-screen
+        {:name "pin"
+         :component mobile.pages.pin/Page
+         :options #js {:title "PIN code"}}]
+
+       #_
        (let [token @(rf/subscribe [:auth-token])]
 
          (if (some? token)

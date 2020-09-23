@@ -1,4 +1,4 @@
-(ns mobile.pages.auth
+(ns mobile.pages.pin
   (:require
    [RN.core :as rn]
    [RN.fetch :as fetch]
@@ -20,9 +20,9 @@
 
    [rn/text-input
     {:style {:fontFamily "Helvetica Neue"
-             :fontSize 24
+             :fontSize 32
              :color "black"
-             :height 50
+             :height 64
              :borderBottomWidth 2
              :borderBottomColor "black"
              :paddingLeft 20
@@ -30,21 +30,25 @@
 
              }
      :autoCapitalize "none"
-     :placeholder "Email address"
-     :keyboardType "email-address"
+     :placeholder "PIN"
+     :textAlign "center"
+     :autoFocus true
+     :keyboardType "number-pad"
      :on-change-text
      (fn [text]
+       #_
        (rf/dispatch [:auth-input-email text]))}]
 
    [rn/touchable-opacity
     {:style {:marginTop 40
              :height 50}
      :on-press (fn []
+                 #_
                  (rf/dispatch [:auth-submit navigation]))}
 
     [rn/text {:style {:fontSize 24
                       :textAlign "center"}}
-     "Get PIN code"]]])
+     "Log in"]]])
 
 
 (def Page (r/reactify-component page))

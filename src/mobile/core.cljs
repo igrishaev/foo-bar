@@ -9,12 +9,15 @@
 
    ;; mobile.pages.main
    mobile.pages.home
+
+   mobile.pages.main
    mobile.pages.auth
+   mobile.pages.pin
 
    [reagent.core :as r]))
 
 
-(def main-page mobile.pages.auth/page)
+(def main-page mobile.pages.main/page)
 
 
 (defn App []
