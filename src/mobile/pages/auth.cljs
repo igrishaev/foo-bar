@@ -3,10 +3,10 @@
    [RN.core :as rn]
    [RN.fetch :as fetch]
    [RN.log :as log :include-macros true]
+   [RN.form :as form]
 
    [mobile.style :as style]
-   [mobile.form :as form]
-   [mobile.const :as c]
+   [mobile.const :as const]
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -33,7 +33,7 @@
      :placeholder "Email address"
      :keyboardType "email-address"
      :on-change-text
-     (form/setter c/path-form-auth :email)}]
+     (form/setter const/path-form-auth :email)}]
 
    [rn/touchable-opacity
     {:style {:marginTop 40

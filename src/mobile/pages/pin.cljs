@@ -3,10 +3,10 @@
    [RN.core :as rn]
    [RN.fetch :as fetch]
    [RN.log :as log :include-macros true]
+   [RN.form :as form]
 
    [mobile.style :as style]
-   [mobile.form :as form]
-   [mobile.const :as c]
+   [mobile.const :as const]
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -18,7 +18,7 @@
                     :flex 1
                     :flexDirection "column"
                     :justifyContent "center"
-                    :alignItems "stretch"}}
+`                    :alignItems "stretch"}}
 
    [rn/text-input
     {:style {:fontFamily "Helvetica Neue"
@@ -35,7 +35,7 @@
      :autoFocus true
      :keyboardType "number-pad"
      :on-change-text
-     (form/setter c/path-form-pin :pin)}]
+     (form/setter const/path-form-pin :pin)}]
 
    [rn/touchable-opacity
     {:style {:marginTop 40

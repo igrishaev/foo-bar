@@ -4,6 +4,8 @@
    [RN.async-storage :as as]
    [RN.log :as log :include-macros true]
 
+   RN.fx
+
    mobile.subs
    mobile.events
    mobile.effects

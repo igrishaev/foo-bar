@@ -11,18 +11,6 @@
 
 
 (rf/reg-fx
- :debug
- (fn [data]
-   (log/debug data)))
-
-
-(rf/reg-fx
- :alert
- (fn [[title & args]]
-   (apply alert/alert title args)))
-
-
-(rf/reg-fx
  :tx-data
  (fn [tx-data]
    (d/transact! ds/conn tx-data)))
