@@ -24,39 +24,63 @@
    (assoc-in db c/path-auth-input-email text)))
 
 
-(rf/ref-event-fx
+(rf/reg-event-fx
  :pin-has-been-sent
- (fn [_ [_ ]]
-   #_
-   (.navigate navigation "pin")
+ (fn [_ [_
+         scope
+         response]]
+   (some-> scope
+           (get :navigation)
+           (.navigate "pin"))))
 
 
-   )
- )
+(rf/reg-event-fx
+ :rpc-http-error
+ (fn [_ [_ input response]]
+   {:debug {:message "RPC response was non-200"
+            :input input
+            :response response}}))
+
+
+(rf/reg-event-fx
+ :rpc-failure
+ (fn [_ [_ input error]]
+   {:debug {:message "RPC response failed"
+            :input input
+            :err error}}))
+
+
+(rf/reg-event-fx
+ :feeds-synced-ok
+ (fn [_ [_ response]]
+   {:tx-data (-> response :data :subs)}))
 
 
 (rf/reg-event-fx
  :auth-submit-ok
- (fn [_ [_ scope]]
-   {:rpc {:method "auth/request-pin"
-          :params {:email "ivan@grishaev.me"}
-          :event-ok [:pin-has-been-sent scope]
-          :event-err [:rpc-error]
-          :event-catch [:rpc-failed]}}))
+ (fn [{:keys [db]} [_ scope]]
+   (let [email (-> db
+                   (get-in c/path-form-auth)
+                   (get :email))]
+     {:rpc
+      {:method "auth/request-pin"
+       :params {:email email}
+       :event-ok [:pin-has-been-sent scope]}})))
+
+
+(rf/reg-event-fx
+ :sync-subscriptions
+ (fn [_ [_]]
+   {:rpc {:method "feed/sync-feeds"
+          :event-ok [:feeds-synced-ok]}}))
 
 
 (rf/reg-event-fx
  :auth-submit
  (fn [{:keys [db]} [_ scope]]
-   (let [email (get-in db c/path-auth-input-email)]
-     (if (s/valid? ::spec/form-auth {:email email})
-
+   (let [data (get-in db c/path-form-auth)]
+     (if (s/valid? ::spec/form-auth data)
        {:dispatch [:auth-submit-ok scope]}
-
-
-       #_
-       (.navigate navigation "pin")
-
-       (alert/alert
-        "Wrong email"
-        "We could not recognize an email address in your input.")))))
+       {:alert
+        ["Wrong email"
+         "We could not recognize an email address in your input."]}))))

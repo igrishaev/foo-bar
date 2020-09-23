@@ -5,6 +5,8 @@
    [RN.log :as log :include-macros true]
 
    [mobile.style :as style]
+   [mobile.form :as form]
+   [mobile.const :as c]
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -33,9 +35,7 @@
      :autoFocus true
      :keyboardType "number-pad"
      :on-change-text
-     (fn [text]
-       #_
-       (rf/dispatch [:auth-input-email text]))}]
+     (form/setter c/path-form-pin :pin)}]
 
    [rn/touchable-opacity
     {:style {:marginTop 40

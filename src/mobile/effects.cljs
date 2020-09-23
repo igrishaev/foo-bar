@@ -1,10 +1,25 @@
 (ns mobile.effects
   (:require
+   [RN.log :as log :include-macros true]
+   [RN.alert :as alert]
+
    [mobile.rpc :as rpc]
    [mobile.datascript :as ds]
 
    [re-frame.core :as rf]
    [datascript.core :as d]))
+
+
+(rf/reg-fx
+ :debug
+ (fn [data]
+   (log/debug data)))
+
+
+(rf/reg-fx
+ :alert
+ (fn [[title & args]]
+   (apply alert/alert title args)))
 
 
 (rf/reg-fx
@@ -15,7 +30,8 @@
 
 (rf/reg-fx
  :rpc
- (fn [{:keys [token
+ (fn [{:as input
+       :keys [token
               method
               params
               event-ok
@@ -32,14 +48,16 @@
 
             (-> event-ok
                 (conj response)
-                rf/dispatch)
+                (rf/dispatch))
 
             (-> event-err
-                (conj response)
-                rf/dispatch))))
+                (or [:rpc-http-error])
+                (conj input response)
+                (rf/dispatch)))))
 
        (catch
            (fn [err]
              (-> event-catch
-                 (conj err)
-                 rf/dispatch))))))
+                 (or [:rpc-failure])
+                 (conj input err)
+                 (rf/dispatch)))))))

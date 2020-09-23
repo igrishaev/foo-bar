@@ -2,8 +2,10 @@
   (:require
    [RN.fetch :as fetch]))
 
-
+#_
 (def base-url "http://192.168.31.102:8088/rpc")
+
+(def base-url "http://192.168.1.101:8088/rpc")
 
 
 (def max-id 1000)
@@ -30,7 +32,5 @@
               token
               (assoc-in [:headers :authorization]
                         (str "Bearer " token)))]
-
-    (js/console.log (pr-str opt))
 
     (fetch/fetch base-url opt)))

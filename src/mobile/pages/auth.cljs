@@ -5,6 +5,7 @@
    [RN.log :as log :include-macros true]
 
    [mobile.style :as style]
+   [mobile.form :as form]
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -31,8 +32,7 @@
      :placeholder "Email address"
      :keyboardType "email-address"
      :on-change-text
-     (fn [text]
-       (rf/dispatch [:auth-input-email text]))}]
+     (form/setter c/path-form-auth :email)}]
 
    [rn/touchable-opacity
     {:style {:marginTop 40
