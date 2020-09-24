@@ -29,4 +29,14 @@
   (reg-re-frame-event-debugger))
 
 
+(rf/reg-event-fx
+ ::dump-db
+ (fn [{:keys [db]} [_]]
+   {:debug db}))
+
+
+(defn dump-db []
+  (rf/dispatch [::dump-db]))
+
+
 (init)
