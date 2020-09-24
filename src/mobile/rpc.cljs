@@ -2,10 +2,11 @@
   (:require
    [RN.fetch :as fetch]))
 
-#_
+;; work
 (def base-url "http://192.168.31.102:8088/rpc")
 
-(def base-url "http://192.168.1.101:8088/rpc")
+;; router
+;; (def base-url "http://192.168.1.101:8088/rpc")
 
 
 (def max-id 1000)

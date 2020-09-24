@@ -1,10 +1,13 @@
 (ns mobile.pages.main
   (:require
    [RN.nav :as nav]
+   [RN.log :as log]
 
-   mobile.pages.home
+   [mobile.const :as const]
+
    mobile.pages.auth
    mobile.pages.pin
+   mobile.pages.home
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -19,33 +22,28 @@
      [nav/navigation-container
       [stack-navigator
 
-       [stack-screen
-        {:name "auth"
-         :component mobile.pages.auth/Page
-         :options #js {:title "Your email"}}]
+       (let [token @(rf/subscribe [:get-in const/path-token])]
 
-       [stack-screen
-        {:name "pin"
-         :component mobile.pages.pin/Page
-         :options #js {:title "PIN code"}}]
+         (log/debug {:token token})
 
-       #_
-       (let [token @(rf/subscribe [:auth-token])]
-
-         (if (some? token)
+         (if token
 
            [:<>
             [stack-screen
              {:name "Home"
-              :component mobile.pages.home/Page}]]
+              :component mobile.pages.home/Page
+              :options #js {:title "Home"}}]]
 
            [:<>
             [stack-screen
-             {:name "Auth"
-              :component mobile.pages.auth/Page}]
+             {:name "auth"
+              :component mobile.pages.auth/Page
+              :options #js {:title "Your email"}}]
+
             [stack-screen
-             {:name "Pin"
-              :component mobile.pages.pin/Page}]]))]]]))
+             {:name "pin"
+              :component mobile.pages.pin/Page
+              :options #js {:title "PIN code"}}]]))]]]))
 
 
 (def Page (r/reactify-component page))

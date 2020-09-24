@@ -7,12 +7,6 @@
 
 
 (rf/reg-sub
- :auth-token
- (fn [db _]
-   (get-in db const/path-token)))
-
-
-(rf/reg-sub
  :db-after
  (fn [db _]
    (-> db

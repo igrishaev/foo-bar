@@ -52,18 +52,6 @@
 
 
 (rf/reg-event-fx
- :auth-submit-ok
- (fn [{:keys [db]} [_ scope]]
-   (let [email (-> db
-                   (get-in const/path-form-auth)
-                   (get :email))]
-     {:rpc
-      {:method "auth/request-pin"
-       :params {:email email}
-       :event-ok [:pin-has-been-sent scope]}})))
-
-
-(rf/reg-event-fx
  :sync-subscriptions
  (fn [_ [_]]
    {:rpc {:method "feed/sync-feeds"
@@ -73,12 +61,22 @@
 (rf/reg-event-fx
  :auth-submit
  (fn [{:keys [db]} [_ scope]]
-   (let [data (get-in db const/path-form-auth)]
-     (if (s/valid? ::spec/form-auth data)
-       {:dispatch [:auth-submit-ok scope]}
+   (let [form (get-in db const/path-form-auth)
+         {:keys [email]} form]
+     (if (s/valid? ::spec/form-auth form)
+       {:dispatch [:auth-submit-ok scope email]}
        {:alert
         ["Wrong email"
          "We could not recognize an email address in your input."]}))))
+
+
+(rf/reg-event-fx
+ :auth-submit-ok
+ (fn [{:keys [db]} [_ scope email]]
+   {:rpc
+    {:method "auth/request-pin"
+     :params {:email email}
+     :event-ok [:pin-has-been-sent scope]}}))
 
 
 (rf/reg-event-fx
@@ -106,4 +104,4 @@
  :token-obtained
  (fn [db [_ response]]
    (assoc-in db const/path-token
-             (-> response :data :secret))))
+             (-> response :data :result :secret))))
