@@ -31,3 +31,11 @@
      (d/pull-many db-after
                   (or pattern const/pattern)
                   selectors))))
+
+
+(rf/reg-sub
+ :query
+ :<- [:db-after]
+ (fn [db-after [_ query & args]]
+   (when db-after
+     (apply d/q query db-after args))))

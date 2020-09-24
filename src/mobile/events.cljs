@@ -45,10 +45,11 @@
             :err error}}))
 
 
+#_
 (rf/reg-event-fx
  :feeds-synced-ok
  (fn [_ [_ response]]
-   {:tx-data (-> response :data :subs)}))
+   {:tx-data (-> response :data :result :subs)}))
 
 
 (rf/reg-event-fx
@@ -105,3 +106,10 @@
  (fn [db [_ response]]
    (assoc-in db const/path-token
              (-> response :data :result :secret))))
+
+
+;;;;;;;;
+(rf/reg-event-fx
+ :foo-bar
+ (fn [_ [_]]
+   {:tx-data [{:subscription/feed (str (rand-int 9999))}]}))
