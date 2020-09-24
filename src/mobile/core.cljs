@@ -6,6 +6,7 @@
    RN.debug
    RN.effects
    RN.subs
+   RN.events
 
    mobile.subs
    mobile.events
