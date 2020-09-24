@@ -1,13 +1,9 @@
 (ns RN.log
-  (:import [goog.log Level LogRecord Logger]
+  (:import [goog.log Level Logger]
            [goog.debug Console])
 
   (:require
-
-   [re-frame.loggers :as rf.log]
-
-   [goog.string.format]
-   [goog.string :as gstring]
+   [RN.util :refer [format]]
 
    [goog.debug.Logger :as Logger]
    [goog.debug.Logger.Level :as Level]
@@ -20,7 +16,11 @@
    [cljs.pprint :as pprint]))
 
 
-(def format gstring/format)
+(defonce console (new Console))
+
+
+(defn set-console-capturing [flag]
+  (.setCapturing console flag))
 
 
 (defn ->google-level
@@ -55,7 +55,6 @@
                  (apply format template args))))))
 
 
-
 (defn debug [data]
   (js/console.log
    (with-out-str
@@ -63,22 +62,3 @@
      (println "--------------")
      (pprint/pprint data)
      (println "--------------"))))
-
-
-#_
-(rf.log/set-loggers!
- {:error
-  (fn [& args]
-    (debug (cons :error args)))
-
-  :log
-  (fn [& args]
-    (debug (cons :log args)))
-
-  :warn
-  (fn [& args]
-    (debug (cons :warn args)))})
-
-
-#_
-(.setCapturing (Console.) true)

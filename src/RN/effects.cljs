@@ -1,4 +1,4 @@
-(ns RN.fx
+(ns RN.effects
   (:require
    [RN.log :as log]
    [RN.alert :as alert]

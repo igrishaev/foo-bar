@@ -1,8 +1,6 @@
 (ns mobile.pages.pin
   (:require
    [RN.core :as rn]
-   [RN.fetch :as fetch]
-   [RN.log :as log :include-macros true]
    [RN.form :as form]
 
    [mobile.style :as style]
@@ -41,8 +39,7 @@
     {:style {:marginTop 40
              :height 50}
      :on-press (fn []
-                 #_
-                 (rf/dispatch [:auth-submit navigation]))}
+                 (rf/dispatch [:pin-submit]))}
 
     [rn/text {:style {:fontSize 24
                       :textAlign "center"}}

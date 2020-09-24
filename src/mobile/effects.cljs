@@ -1,8 +1,5 @@
 (ns mobile.effects
   (:require
-   [RN.log :as log :include-macros true]
-   [RN.alert :as alert]
-
    [mobile.rpc :as rpc]
    [mobile.datascript :as ds]
 

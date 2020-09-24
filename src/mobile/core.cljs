@@ -2,16 +2,13 @@
   (:require
    [RN.core :as rn]
    [RN.async-storage :as as]
-   [RN.log :as log :include-macros true]
 
-   RN.fx
+   RN.debug
+   RN.effects
 
    mobile.subs
    mobile.events
    mobile.effects
-
-   ;; mobile.pages.main
-   mobile.pages.home
 
    mobile.pages.main
    mobile.pages.auth

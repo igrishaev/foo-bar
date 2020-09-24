@@ -1,8 +1,6 @@
 (ns mobile.pages.auth
   (:require
    [RN.core :as rn]
-   [RN.fetch :as fetch]
-   [RN.log :as log :include-macros true]
    [RN.form :as form]
 
    [mobile.style :as style]
