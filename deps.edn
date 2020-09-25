@@ -12,9 +12,7 @@
  :paths ["src"]}
 
 
-{:deps {datascript {:mvn/version "1.0.1"}
-
-        cider/piggieback {:mvn/version "0.5.1"}
+{:deps {cider/piggieback {:mvn/version "0.5.1"}
 
         org.clojure/clojurescript {:mvn/version "1.10.758"}
 
@@ -24,11 +22,13 @@
 
         re-frame {:mvn/version "1.1.1"}
 
-        io.vouch/krell {:git/url "https://github.com/vouch-opensource/krell.git"
-                        :sha "5080e776f256ee497874c2bbe680a5280c1a2921"}
+        io.vouch/krell
+        {:git/url "https://github.com/vouch-opensource/krell.git"
+         :sha "5080e776f256ee497874c2bbe680a5280c1a2921"}
 
-        io.vouch/reagent-react-native {:git/url "https://github.com/vouch-opensource/reagent-react-native.git"
-                                       :sha "54bf52788ab051920ed7641f386177374419e847"}
+        io.vouch/reagent-react-native
+        {:git/url "https://github.com/vouch-opensource/reagent-react-native.git"
+         :sha "54bf52788ab051920ed7641f386177374419e847"}
 
         reagent {:mvn/version "0.10.0"
                  :exclusions [cljsjs/react cljsjs/react-dom]}}}

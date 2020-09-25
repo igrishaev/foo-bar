@@ -4,7 +4,6 @@
    [RN.form :as form]
    [RN.log :as log]
 
-   [mobile.datascript :as ds]
    [mobile.style :as style]
    [mobile.const :as const]
 
@@ -14,8 +13,7 @@
 
 (defn page [{:keys [navigation]}]
 
-  (let [sub-ids @(rf/subscribe [:query ds/q-sub-ids])
-        subs (ds/pull-many sub-ids ds/pattern-subs)]
+  (let [subs @(rf/subscribe [:get-in const/path-remote-subs])]
 
     [rn/view {:style {:padding 30
                       :flex 1

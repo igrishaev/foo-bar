@@ -1,16 +1,8 @@
 (ns mobile.effects
   (:require
    [mobile.rpc :as rpc]
-   [mobile.datascript :as ds]
 
-   [re-frame.core :as rf]
-   [datascript.core :as d]))
-
-
-(rf/reg-fx
- :tx-data
- (fn [tx-data]
-   (d/transact! ds/conn tx-data)))
+   [re-frame.core :as rf]))
 
 
 (rf/reg-fx
