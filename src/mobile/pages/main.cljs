@@ -8,6 +8,8 @@
    mobile.pages.auth
    mobile.pages.pin
    mobile.pages.home
+   mobile.pages.search
+   mobile.pages.search-feed
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -22,7 +24,10 @@
      [nav/navigation-container
       [stack-navigator
 
-       (let [token @(rf/subscribe [:get-in const/path-token])]
+       (let [token @(rf/subscribe [:get-in const/path-token])
+
+             token "aaaaaaa"
+             ]
 
          (log/debug {:token token})
 
@@ -30,9 +35,19 @@
 
            [:<>
             [stack-screen
-             {:name "Home"
+             {:name "home"
               :component mobile.pages.home/Page
-              :options #js {:title "Home"}}]]
+              :options #js {:title "Home"}}]
+
+            [stack-screen
+             {:name "search"
+              :component mobile.pages.search/Page
+              :options #js {:title "Search"}}]
+
+            [stack-screen
+             {:name "search-feed"
+              :component mobile.pages.search-feed/Page
+              :options #js {:title "Feed preview"}}]]
 
            [:<>
             [stack-screen

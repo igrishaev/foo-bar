@@ -21,6 +21,7 @@
                       :justifyContent "center"
                       :alignItems "stretch"}}
 
+     #_
      (for [{:as sub
             sub-id :db/id} subs]
 
@@ -38,22 +39,15 @@
           [rn/text {:style {:padding 20}} feed-title]]))
 
 
-     #_
      [rn/touchable-opacity
       {:style {:marginTop 40
                :height 50}
        :on-press (fn []
-                   (rf/dispatch
-                    [:foo-bar]))}
+                   (.navigate navigation "search"))}
 
       [rn/text {:style {:fontSize 24
                         :textAlign "center"}}
-       "ADD DATA"]]
-
-     #_
-     [rn/text {:style {:fontSize 24
-                       :textAlign "center"}}
-      "HOME SWEET HOME"]]))
+       "go to search"]]]))
 
 
 (def Page (r/reactify-component page))

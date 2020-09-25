@@ -26,9 +26,20 @@
          re-pin?))
 
 
+(s/def ::ne-string
+  (s/and string? (complement str/blank?)))
+
+
+(s/def ::q ::ne-string)
+
+
 (s/def ::form-auth
   (s/keys :req-un [::email]))
 
 
 (s/def ::form-pin
   (s/keys :req-un [::pin]))
+
+
+(s/def ::form-search
+  (s/keys :req-un [::q]))

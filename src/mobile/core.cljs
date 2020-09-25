@@ -12,6 +12,7 @@
    mobile.events
    mobile.effects
 
+   mobile.pages.search
    mobile.pages.home
    mobile.pages.main
    mobile.pages.auth
@@ -20,7 +21,7 @@
    [reagent.core :as r]))
 
 
-(def main-page mobile.pages.home/page)
+(def main-page mobile.pages.main/page)
 
 
 (defn App []

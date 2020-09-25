@@ -39,4 +39,7 @@
   (rf/dispatch [::dump-db]))
 
 
+#_
+(RN.debug/dump-db)
+
 (init)

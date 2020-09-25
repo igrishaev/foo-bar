@@ -7,18 +7,6 @@
    [clojure.spec.alpha :as s]))
 
 
-(rf/reg-event-db
- :tx-report
- (fn [db [_ tx-report]]
-   (assoc-in db const/path-tx-report tx-report)))
-
-
-(rf/reg-event-db
- :auth-input-email
- (fn [db [_ text]]
-   (assoc-in db const/path-auth-input-email text)))
-
-
 (rf/reg-event-fx
  :pin-has-been-sent
  (fn [_ [_
@@ -43,13 +31,6 @@
    {:debug {:message "RPC response failed"
             :input input
             :err error}}))
-
-
-#_
-(rf/reg-event-fx
- :feeds-synced-ok
- (fn [_ [_ response]]
-   {:tx-data (-> response :data :result :subs)}))
 
 
 (rf/reg-event-fx
@@ -108,8 +89,37 @@
              (-> response :data :result :secret))))
 
 
-;;;;;;;;
 (rf/reg-event-fx
- :foo-bar
- (fn [_ [_]]
-   {:tx-data [{:subscription/feed (str (rand-int 9999))}]}))
+ :search-submit
+ (fn [{:keys [db]} [_]]
+   (let [form (get-in db const/path-form-search)
+         {:keys [q]} form]
+     (if (s/valid? ::spec/form-search form)
+       {:dispatch [:search-submit-ok q]}
+       {:alert
+        ["Wrong query"
+         "We could not recognize a query in your input."]}))))
+
+
+(defn ctx->token [ctx]
+  "8f914a19-d221-4a54-a51f-f8ebd034fba4"
+
+  #_
+  (-> ctx :db (get-in const/path-token)))
+
+
+(rf/reg-event-fx
+ :search-submit-ok
+ (fn [ctx [_ q]]
+   {:rpc
+    {:token (ctx->token ctx)
+     :method "feed/discover"
+     :params {:q q}
+     :event-ok [:got-search-result]}}))
+
+
+(rf/reg-event-db
+ :got-search-result
+ (fn [db [_ response]]
+   (assoc-in db const/path-remote-search
+             (-> response :data :result :data))))
