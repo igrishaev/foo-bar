@@ -1,10 +1,13 @@
 (ns RN.nav
   (:require
    ["react-native-gesture-handler"]
+
    ["react-native-safe-area-context"
     :refer [SafeAreaView SafeAreaProvider]]
+
    ["@react-navigation/native"
-    :refer [NavigationContainer]]
+    :refer [NavigationContainer useNavigation]]
+
    ["@react-navigation/stack"
     :refer [createStackNavigator]]
 
@@ -21,6 +24,10 @@
 
 (def safe-area-view
   (r/adapt-react-class SafeAreaView))
+
+
+(defn user-navigation []
+  (useNavigation))
 
 
 (defn create-stack-navigator []
