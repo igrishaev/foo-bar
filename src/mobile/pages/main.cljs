@@ -10,6 +10,7 @@
    mobile.pages.home
    mobile.pages.search
    mobile.pages.search-feed
+   mobile.pages.search-entry
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -47,7 +48,14 @@
             [stack-screen
              {:name "search-feed"
               :component mobile.pages.search-feed/Page
-              :options #js {:title "Feed preview"}}]]
+              :options #js {:title "Feed preview"}}]
+
+            [stack-screen
+             {:name "search-entry"
+              :component mobile.pages.search-entry/Page
+              :options #js {:title "Entry preview"}}]]
+
+           ;; --------
 
            [:<>
             [stack-screen

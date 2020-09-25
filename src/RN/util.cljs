@@ -5,3 +5,5 @@
 
 
 (def format gstring/format)
+
+(def enumerate (partial map-indexed vector))
