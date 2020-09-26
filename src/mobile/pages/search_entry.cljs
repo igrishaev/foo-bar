@@ -16,8 +16,11 @@
 (defn page [{:keys [route
                     navigation]}]
 
-  (let [idx-feed (.. route -params -idx_feed)
-        idx-entry (.. route -params -idx_entry)
+  (let [;; idx-feed (.. route -params -idx_feed)
+        ;; idx-entry (.. route -params -idx_entry)
+
+        idx-feed 0
+        idx-entry 0
 
         path (conj const/path-remote-search idx-feed :entries idx-entry)
 

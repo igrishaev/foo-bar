@@ -8,6 +8,9 @@
    ["@react-navigation/native"
     :refer [NavigationContainer useNavigation]]
 
+   ["@react-navigation/material-top-tabs"
+    :refer [createMaterialTopTabNavigator]]
+
    ["@react-navigation/stack"
     :refer [createStackNavigator]]
 
@@ -35,3 +38,10 @@
     {:stack stack
      :stack-navigator (r/adapt-react-class (.-Navigator stack))
      :stack-screen (r/adapt-react-class (.-Screen stack))}))
+
+
+(defn create-material-top-tab-navigator []
+  (let [^js tab (createMaterialTopTabNavigator)]
+    {:tab tab
+     :tab-navigator (r/adapt-react-class (.-Navigator tab))
+     :tab-screen (r/adapt-react-class (.-Screen tab))}))
