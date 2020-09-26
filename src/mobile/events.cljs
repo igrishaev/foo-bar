@@ -102,7 +102,7 @@
 
 
 (defn ctx->token [ctx]
-  "8f914a19-d221-4a54-a51f-f8ebd034fba4"
+  "7f45f266-c6f7-4221-b39e-89728b38e279"
 
   #_
   (-> ctx :db (get-in const/path-token)))

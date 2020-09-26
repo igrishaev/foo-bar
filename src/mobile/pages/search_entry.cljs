@@ -4,6 +4,7 @@
    [RN.form :as form]
    [RN.log :as log]
    [RN.util :as util]
+   [RN.webview :refer [web-view]]
 
    [mobile.style :as style]
    [mobile.const :as const]
@@ -26,6 +27,45 @@
 
     (log/debug entry)
 
+    [web-view {:style {:padding 30}
+                :dataDetectorTypes #js ["all"]
+                :containerStyle {:flex 1}
+                :originWhitelist #js ["*"]
+
+                ;; :overScrollMode "content"
+                ;; :automaticallyAdjustContentInsets false
+                ;; :scrollEnabled false
+                ;; :showsVerticalScrollIndicator false
+
+                :source #js {:baseUrl (-> entry :entry/link)
+                             :html
+                             (str "<html><head>
+
+<style>
+    body { font-size: 150%; word-wrap: break-word; overflow-wrap: break-word; }
+    img { width: 100% }
+</style>
+
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>"
+
+                                  (-> entry :entry/content)
+
+
+                                  "</body></html>"
+
+                                  )
+
+                             #_
+                             "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><p>This is a static HTML source!</p></body></html>"
+
+                             #_
+                             (-> entry :entry/content)}
+
+                }]
+
+
+    #_
     [rn/scroll-view
      {:contentContainerStyle
       {:padding 30
@@ -43,8 +83,47 @@
      [rn/text {:style {:fontSize 24}}
       (-> entry :entry/title)]
 
+     #_
+     [web-view {:style {:padding 30}
+                :dataDetectorTypes #js ["all"]
+                :containerStyle {:flex 1}
+                :originWhitelist #js ["*"]
+
+                ;; :overScrollMode "content"
+                ;; :automaticallyAdjustContentInsets false
+                ;; :scrollEnabled false
+                ;; :showsVerticalScrollIndicator false
+
+                :source #js {:baseUrl (-> entry :entry/link)
+                             :html
+                             (str "<html><head>
+
+<style>
+    body { font-size: 150%; word-wrap: break-word; overflow-wrap: break-word; }
+    img { width: 100% }
+</style>
+
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>"
+
+                                  (-> entry :entry/content)
+
+
+                                  "</body></html>"
+
+                                  )
+
+                             #_
+                             "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><p>This is a static HTML source!</p></body></html>"
+
+                             #_
+                             (-> entry :entry/content)}
+
+                }]
+
+     #_
      [rn/text {:style {:fontSize 18}}
-      (-> entry :entry/content)]]))
+      ]]))
 
 
 (def Page (r/reactify-component page))

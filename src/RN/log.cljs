@@ -1,4 +1,7 @@
 (ns RN.log
+  "
+  https://lambdaisland.com/blog/2019-06-10-goog-log
+  "
   (:import [goog.log Level Logger]
            [goog.debug Console])
 
