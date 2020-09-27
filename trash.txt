@@ -1,0 +1,5 @@
+
+import { AppRegistry } from 'react-native';
+import './app.js'
+// import App from './app.js';
+AppRegistry.registerComponent('FooBar', () => mobile.core.App);
