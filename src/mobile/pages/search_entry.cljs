@@ -26,23 +26,30 @@
 
         _ (log/debug path)
 
-        entry @(rf/subscribe [:get-in path])]
+        entry @(rf/subscribe [:get-in path])
 
-    (log/debug entry)
+        ;; entry {:entry/link "http://lenta.ru"
+        ;;        :entry/content "test foo bar <b>aaa</b> aaaaa"}
 
-    [web-view {:style {:padding 30}
-                :dataDetectorTypes #js ["all"]
-                :containerStyle {:flex 1}
-                :originWhitelist #js ["*"]
+        ]
 
-                ;; :overScrollMode "content"
-                ;; :automaticallyAdjustContentInsets false
-                ;; :scrollEnabled false
-                ;; :showsVerticalScrollIndicator false
+    (log/debug entry )
 
-                :source #js {:baseUrl (-> entry :entry/link)
-                             :html
-                             (str "<html><head>
+    [web-view
+     {:style {:padding 30}
+      :dataDetectorTypes #js ["all"]
+      :containerStyle {:flex 1}
+      :originWhitelist #js ["*"]
+
+      ;; :overScrollMode "content"
+      ;; :automaticallyAdjustContentInsets false
+      ;; :scrollEnabled false
+      ;; :showsVerticalScrollIndicator false
+
+      :source
+      #js {:baseUrl (-> entry :entry/link)
+           :html
+           (str "<html><head>
 
 <style>
     body { font-size: 150%; word-wrap: break-word; overflow-wrap: break-word; }
@@ -52,20 +59,20 @@
 
 <meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>"
 
-                                  (-> entry :entry/content)
+                (-> entry :entry/content)
 
 
-                                  "</body></html>"
+                "</body></html>"
 
-                                  )
+                )
 
-                             #_
-                             "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><p>This is a static HTML source!</p></body></html>"
+           #_
+           "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><p>This is a static HTML source!</p></body></html>"
 
-                             #_
-                             (-> entry :entry/content)}
+           #_
+           (-> entry :entry/content)}
 
-                }]
+      }]
 
 
     #_

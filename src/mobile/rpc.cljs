@@ -6,7 +6,10 @@
 ;; (def base-url "http://192.168.31.102:8088/rpc")
 
 ;; router
-(def base-url "http://192.168.1.100:8088/rpc")
+;; (def base-url "http://192.168.1.100:8088/rpc")
+
+;; home
+(def base-url "http://192.168.0.26:8088/rpc")
 
 
 (def max-id 1000)

@@ -1,5 +1,10 @@
 (ns mobile.pages.search-feed
   (:require
+
+   ["react-native-swiper"
+    :refer [default]
+    :rename {default Swiper}]
+
    [RN.core :as rn]
    [RN.form :as form]
    [RN.log :as log]
@@ -17,9 +22,88 @@
    [reagent.core :as r]))
 
 
+(let [{:keys [tab
+              tab-navigator
+              tab-screen]}
+      (nav/create-material-top-tab-navigator)]
+
+  (def tab tab)
+  (def tab-navigator tab-navigator)
+  (def tab-screen tab-screen))
+
+
+(def swiper
+  (r/adapt-react-class Swiper))
+
+
+(defn ccc []
+  [rn/view])
+
+
+(def Ccc (r/reactify-component ccc))
+
+
+(defn tabbed-view []
+  [tab-navigator
+
+   {:lazy true
+    :lazyPreloadDistance 0
+    :tabBarComponent Ccc
+    :tabBarPosition "bottom"
+    :tabBarOptions #js {:scrollEnabled true}
+
+    }
+
+   (for [n (range 1 60)]
+     ^{:key n}
+     [tab-screen
+      {:name (str "page-" n)
+       :component mobile.pages.auth/Page
+       :options #js {:title (str "Page #" n)}}
+      ]
+     )
+
+
+
+])
+
+
+
 (defn page [{:keys [route
                     navigation]}]
 
+  [swiper
+
+   {:horizontal true
+    :loop false
+    :showsButtons false
+    :autoplay false
+    ;; :onIndexChanged
+
+    :loadMinimal true
+    :loadMinimalSize 1
+    :bounces true
+
+    }
+
+   (for [n (range 1 30)]
+     ^{:key n}
+
+     [mobile.pages.search-entry/page]
+
+     #_
+     [rn/view
+      [rn/text
+       "AAAAA"]
+      ]
+
+     #_
+     [mobile.pages.auth])
+
+   ]
+
+
+  #_
   (let [idx-feed (.. route -params -search_index)
         path (conj const/path-remote-search idx-feed)
 
@@ -28,117 +112,18 @@
         ;; _ (log/debug route)
         ;; _ (log/debug path)
 
-        item @(rf/subscribe [:get-in path])
+        ;; item @(rf/subscribe [:get-in path])
 
-        {:keys [feed entries]} item
+        ;; {:keys [feed entries]} item
 
-        idx-entries (util/enumerate entries)
-
-        {:keys [tab-navigator
-                tab-screen]}
-        (nav/create-material-top-tab-navigator)
+        ;; idx-entries (util/enumerate entries)
 
         ;; {:keys [stack-navigator stack-screen]}
         ;; (nav/create-stack-navigator)
         ]
 
-    #_
-    [stack-navigator
-     {:screenOptions
-      #js {:headerShown false
-           :gesturesEnabled true
-           :gestureDirection "horizontal"
-           :cardOverlayEnabled true
-           }}
+    [tabbed-view]
 
-     [stack-screen
-      {:name "aa1"
-       :component mobile.pages.auth/Page}]
-
-     [stack-screen
-      {:name "bb2"
-       :component mobile.pages.pin/Page}]
-     ]
-
-    [tab-navigator
-
-     {:lazy true
-      :lazyPreloadDistance 1
-      :tabBarComponent nil
-      :tabBarPosition "top"
-      :tabBarOptions #js {:scrollEnabled true}
-
-      }
-
-     [tab-screen
-      {:name "aaa"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}
-       }
-      ]
-
-     [tab-screen
-      {:name "bbb"
-       :component mobile.pages.pin/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}
-      ]
-
-     [tab-screen
-      {:name "aaa1"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa2"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa3"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa4"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa5"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa6"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa7"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa8"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa9"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa10"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     [tab-screen
-      {:name "aaa11"
-       :component mobile.pages.search-entry/Page
-       :options #js {:title "ASfsdf asDFs dfs"}}]
-
-     ]
 
     #_
     [nav/navigation-container
