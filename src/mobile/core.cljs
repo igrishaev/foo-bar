@@ -12,6 +12,8 @@
    mobile.events
    mobile.effects
 
+   [mobile.config :as config]
+
    mobile.views.main
 
    ;; mobile.pages.search
@@ -23,15 +25,6 @@
    [reagent.core :as r]))
 
 
-#_
-(defn main-page []
-
-  [rn/text "HELLO"]
-
-  #_
-  mobile.pages.main/page)
-
-
 (def main-page mobile.views.main/screen)
 
 
@@ -41,7 +34,7 @@
 
 (defn init []
   (.registerComponent rn/app-registry
-                      "FooBar"
+                      config/app-name
                       (fn [] App)))
 
 

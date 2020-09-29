@@ -8,3 +8,5 @@
 
 (def path-remote-subs [:remote :subs])
 (def path-remote-search [:remote :search])
+
+(def app-name "FooBar")

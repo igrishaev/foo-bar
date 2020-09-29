@@ -7,6 +7,8 @@
 
    mobile.views.auth
    mobile.views.pin
+   mobile.views.subs
+   mobile.views.feed
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -28,60 +30,40 @@
    [nav/navigation-container
     [stack-navigator
 
-     (let [token @(rf/subscribe [:get-in config/path-token])
+     (let [token @(rf/subscribe
+                   [:get-in config/path-token])
 
            token "aaaaaaa"
            ]
 
-       [:<>
-
-
-        [stack-screen
-         {:name "auth"
-          :component mobile.views.auth/Screen
-          :options #js {:title "Authenticate"}}]
-
-        [stack-screen
-         {:name "pin"
-          :component mobile.views.pin/Screen
-          :options #js {:title "PIN code"}}]]
-
-       #_
        (if token
 
          [:<>
           [stack-screen
-           {:name "home"
-            :component mobile.pages.home/Page
-            :options #js {:title "Home"}}]
+           {:name "subs"
+            :component mobile.views.subs/Screen
+            :options #js {:title "Subscriptions"}}]
 
           [stack-screen
-           {:name "search"
-            :component mobile.pages.search/Page
-            :options #js {:title "Search"}}]
-
-          [stack-screen
-           {:name "search-feed"
-            :component mobile.pages.search-feed/Page
-            :options #js {:title "Feed preview"}}]
-
-          [stack-screen
-           {:name "search-entry"
-            :component mobile.pages.search-entry/Page
-            :options #js {:title "Entry preview"}}]]
+           {:name "feed"
+            :component mobile.views.feed/Screen
+            :options #js {:title "Feed"}}]]
 
          ;; --------
 
          [:<>
+
           [stack-screen
            {:name "auth"
-            :component mobile.pages.auth/Page
-            :options #js {:title "Your email"}}]
+            :component mobile.views.auth/Screen
+            :options #js {:title "Authenticate"}}]
 
           [stack-screen
            {:name "pin"
-            :component mobile.pages.pin/Page
-            :options #js {:title "PIN code"}}]]))]]])
+            :component mobile.views.pin/Screen
+            :options #js {:title "PIN code"}}]]
+
+         ))]]])
 
 
 (def Screen (r/reactify-component screen))
