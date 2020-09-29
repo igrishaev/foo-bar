@@ -1,5 +1,6 @@
 (ns RN.effects
   (:require
+   [RN.nav :as core]
    [RN.log :as log]
    [RN.alert :as alert]
 
@@ -16,3 +17,10 @@
  :alert
  (fn [[title & args]]
    (apply alert/alert title args)))
+
+
+(rf/reg-fx
+ :navigate
+ (fn [screen-name params]
+   (some-> (use-navigation)
+           (.navigate screen-name (clj->js params)))))

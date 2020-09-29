@@ -29,8 +29,12 @@
   (r/adapt-react-class SafeAreaView))
 
 
-(defn user-navigation []
+(defn use-navigation []
   (useNavigation))
+
+
+(defn use-route []
+  (useRoute))
 
 
 (defn create-stack-navigator []
