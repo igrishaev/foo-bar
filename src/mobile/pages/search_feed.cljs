@@ -1,15 +1,11 @@
 (ns mobile.pages.search-feed
   (:require
-
-   ["react-native-swiper"
-    :refer [default]
-    :rename {default Swiper}]
-
    [RN.core :as rn]
    [RN.form :as form]
    [RN.log :as log]
    [RN.util :as util]
    [RN.nav :as nav]
+   [RN.swiper :refer [swiper]]
 
    mobile.pages.auth
    mobile.pages.pin
@@ -32,23 +28,13 @@
   (def tab-screen tab-screen))
 
 
-(def swiper
-  (r/adapt-react-class Swiper))
-
-
-(defn ccc []
-  [rn/view])
-
-
-(def Ccc (r/reactify-component ccc))
-
 
 (defn tabbed-view []
   [tab-navigator
 
    {:lazy true
     :lazyPreloadDistance 0
-    :tabBarComponent Ccc
+    ;; :tabBarComponent
     :tabBarPosition "bottom"
     :tabBarOptions #js {:scrollEnabled true}
 
@@ -77,8 +63,9 @@
    {:horizontal true
     :loop false
     :showsButtons false
+    :showsPagination false
     :autoplay false
-    ;; :onIndexChanged
+    :onIndexChanged (fn [index])
 
     :loadMinimal true
     :loadMinimalSize 1
