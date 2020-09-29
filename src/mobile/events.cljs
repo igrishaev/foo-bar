@@ -7,15 +7,9 @@
    [clojure.spec.alpha :as s]))
 
 
-(rf/reg-event-fx
- :pin-has-been-sent
- (fn [_ [_
-         scope
-         response]]
-   (some-> scope
-           (get :navigation)
-           (.navigate "pin"))))
-
+;;
+;; RPC
+;;
 
 (rf/reg-event-fx
  :rpc-http-error
@@ -33,20 +27,17 @@
             :err error}}))
 
 
-(rf/reg-event-fx
- :sync-subscriptions
- (fn [_ [_]]
-   {:rpc {:method "feed/sync-feeds"
-          :event-ok [:feeds-synced-ok]}}))
-
+;;
+;; Auth
+;;
 
 (rf/reg-event-fx
  :auth-submit
- (fn [{:keys [db]} [_ scope]]
+ (fn [{:keys [db]} [_ navigation]]
    (let [form (get-in db const/path-form-auth)
          {:keys [email]} form]
      (if (s/valid? ::spec/form-auth form)
-       {:dispatch [:auth-submit-ok scope email]}
+       {:dispatch [:auth-submit-ok navigation email]}
        {:alert
         ["Wrong email"
          "We could not recognize an email address in your input."]}))))
@@ -54,12 +45,22 @@
 
 (rf/reg-event-fx
  :auth-submit-ok
- (fn [{:keys [db]} [_ scope email]]
+ (fn [{:keys [db]} [_ navigation email]]
    {:rpc
     {:method "auth/request-pin"
      :params {:email email}
-     :event-ok [:pin-has-been-sent scope]}}))
+     :event-ok [:pin-has-been-sent navigation]}}))
 
+
+(rf/reg-event-fx
+ :pin-has-been-sent
+ (fn [_ [_ navigation response]]
+   (.navigate navigation "pin")))
+
+
+;;
+;; PIN
+;;
 
 (rf/reg-event-fx
  :pin-submit
@@ -88,6 +89,10 @@
    (assoc-in db const/path-token
              (-> response :data :result :secret))))
 
+
+;;
+;;
+;;
 
 (rf/reg-event-fx
  :search-submit
@@ -123,3 +128,10 @@
  (fn [db [_ response]]
    (assoc-in db const/path-remote-search
              (-> response :data :result :data))))
+
+
+(rf/reg-event-fx
+ :sync-subscriptions
+ (fn [_ [_]]
+   {:rpc {:method "feed/sync-feeds"
+          :event-ok [:feeds-synced-ok]}}))

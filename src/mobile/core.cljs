@@ -1,7 +1,7 @@
 (ns mobile.core
   (:require
    [RN.core :as rn]
-   [RN.async-storage :as as]
+   [RN.async-storage :as async-storage]
 
    RN.debug
    RN.effects
@@ -12,16 +12,27 @@
    mobile.events
    mobile.effects
 
-   mobile.pages.search
-   mobile.pages.home
-   mobile.pages.main
-   mobile.pages.auth
-   mobile.pages.pin
+   mobile.views.main
+
+   ;; mobile.pages.search
+   ;; mobile.pages.home
+   ;; mobile.pages.main
+   ;; mobile.pages.auth
+   ;; mobile.pages.pin
 
    [reagent.core :as r]))
 
 
-(def main-page mobile.pages.main/page)
+#_
+(defn main-page []
+
+  [rn/text "HELLO"]
+
+  #_
+  mobile.pages.main/page)
+
+
+(def main-page mobile.views.main/screen)
 
 
 (defn App []

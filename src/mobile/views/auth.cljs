@@ -1,16 +1,16 @@
-(ns mobile.pages.auth
+(ns mobile.views.auth
   (:require
    [RN.core :as rn]
    [RN.form :as form]
 
    [mobile.style :as style]
-   [mobile.const :as const]
+   [mobile.config :as config]
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
 
 
-(defn page [{:keys [navigation]}]
+(defn screen [{:keys [navigation]}]
 
   [rn/view {:style {:padding 30
                     :flex 1
@@ -31,18 +31,18 @@
      :placeholder "Email address"
      :keyboardType "email-address"
      :on-change-text
-     (form/setter const/path-form-auth :email)}]
+     (form/setter config/path-form-auth :email)}]
 
    [rn/touchable-opacity
     {:style {:marginTop 40
              :height 50}
-     :on-press (fn []
-                 (rf/dispatch
-                  [:auth-submit navigation]))}
+     :on-press
+     (fn []
+       (rf/dispatch [:auth-submit navigation]))}
 
     [rn/text {:style {:fontSize 24
                       :textAlign "center"}}
      "Get PIN code"]]])
 
 
-(def Page (r/reactify-component page))
+(def Screen (r/reactify-component screen))
