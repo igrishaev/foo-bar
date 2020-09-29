@@ -6,13 +6,16 @@
     :refer [SafeAreaView SafeAreaProvider]]
 
    ["@react-navigation/native"
-    :refer [NavigationContainer useNavigation]]
+    :refer [NavigationContainer]]
 
    ["@react-navigation/material-top-tabs"
     :refer [createMaterialTopTabNavigator]]
 
    ["@react-navigation/stack"
     :refer [createStackNavigator]]
+
+   ["@react-navigation/bottom-tabs"
+    :refer [createBottomTabNavigator]]
 
    [reagent.core :as r]))
 
@@ -29,14 +32,6 @@
   (r/adapt-react-class SafeAreaView))
 
 
-(defn use-navigation []
-  (useNavigation))
-
-
-(defn use-route []
-  (useRoute))
-
-
 (defn create-stack-navigator []
   (let [^js stack (createStackNavigator)]
     {:stack stack
@@ -46,6 +41,13 @@
 
 (defn create-material-top-tab-navigator []
   (let [^js tab (createMaterialTopTabNavigator)]
+    {:tab tab
+     :tab-navigator (r/adapt-react-class (.-Navigator tab))
+     :tab-screen (r/adapt-react-class (.-Screen tab))}))
+
+
+(defn create-bottom-tab-navigator []
+  (let [^js tab (createBottomTabNavigator)]
     {:tab tab
      :tab-navigator (r/adapt-react-class (.-Navigator tab))
      :tab-screen (r/adapt-react-class (.-Screen tab))}))

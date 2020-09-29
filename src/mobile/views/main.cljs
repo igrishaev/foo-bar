@@ -1,15 +1,18 @@
 (ns mobile.views.main
   (:require
+   [RN.core :as rn]
    [RN.nav :as nav]
    [RN.log :as log]
 
    [mobile.config :as config]
 
-   mobile.views.auth
-   mobile.views.pin
-   mobile.views.subs
-   mobile.views.feed
-   mobile.views.swiper
+   mobile.views.main-auth
+
+   ;; mobile.views.auth
+   ;; mobile.views.pin
+   ;; mobile.views.subs
+   ;; mobile.views.feed
+   ;; mobile.views.swiper
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -29,6 +32,16 @@
 
   [nav/safe-area-provider
    [nav/navigation-container
+
+    #_
+    [rn/text "AAAAAAAAAa"]
+
+    [mobile.views.main-auth/screen]]
+
+
+
+   #_
+   [nav/navigation-container
     [stack-navigator
 
      (let [token @(rf/subscribe
@@ -37,6 +50,9 @@
            token "aaaaaaa"
            ]
 
+
+
+       #_
        (if token
 
          [:<>
