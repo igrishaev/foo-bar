@@ -5,7 +5,9 @@
   (:require
    ["react-native-swiper"
     :refer [default]
-    :rename {default Swiper}]))
+    :rename {default Swiper}]
+
+   [reagent.core :as r]))
 
 
 (def swiper

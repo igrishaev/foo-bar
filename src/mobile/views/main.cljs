@@ -9,6 +9,7 @@
    mobile.views.pin
    mobile.views.subs
    mobile.views.feed
+   mobile.views.swiper
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -47,7 +48,12 @@
           [stack-screen
            {:name "feed"
             :component mobile.views.feed/Screen
-            :options #js {:title "Feed"}}]]
+            :options #js {:title "Feed"}}]
+
+          [stack-screen
+           {:name "swiper"
+            :component mobile.views.swiper/Screen
+            :options #js {:title "Swiper"}}]]
 
          ;; --------
 

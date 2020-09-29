@@ -1,8 +1,9 @@
-(ns mobile.views.feed
+(ns mobile.views.swiper
   (:require
    [RN.core :as rn]
    [RN.util :as util]
    [RN.nav :as nav]
+   [RN.swiper :refer [swiper]]
 
    [mobile.style :as style]
    [mobile.config :as config]
@@ -26,7 +27,7 @@
      :entry/link "http://test.com/link2"}}])
 
 
-(defn entry-item [i navigation message]
+(defn entry-item [i message]
 
   (let [{entry :message/entry} message
         {entry-title :entry/title
@@ -35,9 +36,7 @@
     [rn/view
      [rn/touchable-opacity
       {:on-press
-       (fn []
-         (.navigate navigation "swiper"
-                    #js {:index i}))}
+       (fn [])}
 
       [rn/text {:style {:fontSize 18}}
        entry-title]]]))
@@ -46,7 +45,9 @@
 (defn screen [{:keys [route
                       navigation]}]
 
-  (let [ ;; subs @(rf/subscribe
+  (let [index (or (.. route -params -index) 0)
+
+        ;; subs @(rf/subscribe
         ;;        [:get-in config/path-remote-subs])
 
         ;; subs SUBS
@@ -55,18 +56,29 @@
 
         ]
 
-    [rn/scroll-view
-     {:contentContainerStyle
-      {:padding 30
-       :flex 1
-       :flexDirection "column"
-       :alignItems "stretch"}}
+    [swiper
+
+     {:horizontal true
+      :loop false
+      ;; :showsButtons false
+      ;; :showsPagination false
+      :autoplay false
+      :onIndexChanged (fn [index]
+                        (println index))
+
+      :index index
+
+      :loadMinimal true
+      :loadMinimalSize 1
+      :bounces true
+
+      }
 
      (for [[i entry] (util/enumerate entries)
            :let [{entry-id :db/id} entry]]
 
        ^{:key entry-id}
-       [entry-item i navigation entry])]))
+       [entry-item i entry])]))
 
 
 (def Screen (r/reactify-component screen))
