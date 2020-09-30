@@ -38,9 +38,10 @@
          {:keys [email]} form]
      (if (s/valid? ::spec/form-auth form)
        {:dispatch [:auth-submit-ok navigation email]}
-       {:alert
-        ["Wrong email"
-         "We could not recognize an email address in your input."]}))))
+       {:show-message
+        {:type "danger"
+         :message "Wrong email"
+         :description "We could not recognize an email address in your input."}}))))
 
 
 (rf/reg-event-fx
@@ -69,9 +70,10 @@
          {:keys [pin]} form]
      (if (s/valid? ::spec/form-pin form)
        {:dispatch [:pin-submit-ok pin]}
-       {:alert
-        ["Wrong PIN"
-         "We could not recognize a PIN code in your input."]}))))
+       {:show-message
+        {:type "danger"
+         :message "Wrong PIN"
+         :description "We could not recognize a PIN code in your input."}}))))
 
 
 (rf/reg-event-fx
