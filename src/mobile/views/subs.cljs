@@ -29,7 +29,6 @@
      :feed/link "http://example.com/"}}])
 
 
-
 (defn subs-item [i navigation subs]
 
   (let [{subs-title :subscription/title
@@ -49,6 +48,22 @@
       [rn/text {:style {:fontSize 18}} title]]]))
 
 
+(defn render-item [input]
+
+  (let [item (.-item input)
+        index (.-index input)
+
+        {:keys [title]} item]
+
+    (r/as-element
+     [rn/view {:style {:height 100}}
+      [rn/text "AAAAA"]])))
+
+
+(defn on-end-reached []
+  (println "THE END"))
+
+
 (defn screen [{:keys [navigation]}]
 
   (let [subs @(rf/subscribe
@@ -58,6 +73,28 @@
 
         ]
 
+    (letfn [(get-item-count []
+              (count subs))
+
+            (get-item [_ index]
+              (get subs index))
+
+            (key-extractor [item index]
+              (str "item-" index))]
+
+      [rn/virtualized-list
+
+       ;; rn/flat-list
+
+       {:data #js []
+        :initialNumToRender 5
+        :keyExtractor key-extractor
+        :getItemCount get-item-count
+        :getItem get-item
+        :onEndReached on-end-reached
+        :renderItem render-item}])
+
+    #_
     [rn/scroll-view
      {:contentContainerStyle
       {:padding 30

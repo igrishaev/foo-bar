@@ -21,7 +21,11 @@
    [nav/navigation-container
 
     (let [token @(rf/subscribe
-                  [:get-in config/path-token])]
+                  [:get-in config/path-token])
+
+          token "aaaaaaa"
+
+          ]
 
       (if token
         [mobile.views.tab-auth/screen]

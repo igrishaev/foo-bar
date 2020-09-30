@@ -55,5 +55,8 @@
 (def virtualized-list
   (r/adapt-react-class rn/VirtualizedList))
 
+(def flat-list
+  (r/adapt-react-class rn/FlatList))
+
 (def app-registry
   rn/AppRegistry)
