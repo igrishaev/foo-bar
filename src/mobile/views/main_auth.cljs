@@ -6,7 +6,8 @@
 
    [mobile.config :as config]
 
-   mobile.views.subs
+   mobile.views.stack-subs
+
    mobile.views.search
    mobile.views.user
    mobile.views.about
@@ -31,20 +32,24 @@
 
    [:<>
     [tab-screen
-     {:name "subs"
-      :component mobile.views.subs/Screen}]
+     {:name "tab-subs"
+      :component mobile.views.stack-subs/Screen
+      :options #js {:title "Subscriptions"}}]
 
     [tab-screen
-     {:name "search"
-      :component mobile.views.search/Screen}]
+     {:name "tab-search"
+      :component mobile.views.search/Screen
+      :options #js {:title "Search"}}]
 
     [tab-screen
-     {:name "user"
-      :component mobile.views.user/Screen}]
+     {:name "tab-user"
+      :component mobile.views.user/Screen
+      :options #js {:title "User"}}]
 
     [tab-screen
-     {:name "about"
-      :component mobile.views.about/Screen}]]])
+     {:name "tab-about"
+      :component mobile.views.about/Screen
+      :options #js {:title "About"}}]]])
 
 
 (def Screen (r/reactify-component screen))
