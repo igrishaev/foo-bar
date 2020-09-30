@@ -1,4 +1,4 @@
-(ns mobile.views.main-auth
+(ns mobile.views.tab-auth
   (:require
    [RN.core :as rn]
    [RN.nav :as nav]

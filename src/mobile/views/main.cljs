@@ -6,13 +6,8 @@
 
    [mobile.config :as config]
 
-   mobile.views.main-auth
-
-   ;; mobile.views.auth
-   ;; mobile.views.pin
-   ;; mobile.views.subs
-   ;; mobile.views.feed
-   ;; mobile.views.swiper
+   mobile.views.tab-auth
+   mobile.views.tab-non-auth
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -23,7 +18,13 @@
   [nav/safe-area-provider
    [nav/navigation-container
 
-    [mobile.views.main-auth/screen]]
+
+    [mobile.views.tab-auth/screen]
+
+    #_
+    [mobile.views.tab-non-auth/screen]
+
+    ]
 
 
    #_
