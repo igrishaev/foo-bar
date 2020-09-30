@@ -9,6 +9,13 @@
 
 
 #_
+(rf/dispatch [:assoc-in [:auth :token] nil])
+
+#_
+(rf/dispatch [:assoc-in [:auth :token] "aaa"])
+
+
+#_
 (.. (rpc/call {:method "auth/request-pin"
                :params {:email "ivan@grishaev.me"}})
     (then println)

@@ -8,6 +8,8 @@
    [mobile.style :as style]
    [mobile.config :as config]
 
+   mobile.views.entry
+
    [re-frame.core :as rf]
    [reagent.core :as r]))
 
@@ -78,7 +80,7 @@
            :let [{entry-id :db/id} entry]]
 
        ^{:key entry-id}
-       [entry-item i entry])]))
+       [mobile.views.entry/screen i entry])]))
 
 
 (def Screen (r/reactify-component screen))

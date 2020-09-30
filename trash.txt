@@ -3,3 +3,40 @@ import { AppRegistry } from 'react-native';
 import './app.js'
 // import App from './app.js';
 AppRegistry.registerComponent('FooBar', () => mobile.core.App);
+
+
+-     [web-view {:style {:padding 30}
+-                :dataDetectorTypes #js ["all"]
+-                :containerStyle {:flex 1}
+-                :originWhitelist #js ["*"]
+-
+-                ;; :overScrollMode "content"
+-                ;; :automaticallyAdjustContentInsets false
+-                ;; :scrollEnabled false
+-                ;; :showsVerticalScrollIndicator false
+-
+-                :source #js {:baseUrl (-> entry :entry/link)
+-                             :html
+-                             (str "<html><head>
+-
+-<style>
+-    body { font-size: 150%; word-wrap: break-word; overflow-wrap: break-word; }
+-    img { width: 100% }
+-</style>
+-
+-
+-<meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>"
+-
+-                                  (-> entry :entry/content)
+-
+-
+-                                  "</body></html>"
+-
+-                                  )
+-
+-                             #_
+-                             "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><p>This is a static HTML source!</p></body></html>"
+-
+-                             #_
+-                             (-> entry :entry/content)}
+-
