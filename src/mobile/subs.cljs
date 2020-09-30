@@ -1,5 +1,5 @@
 (ns mobile.subs
   (:require
-   [mobile.const :as const]
+   [mobile.config :as config]
 
    [re-frame.core :as rf]))

@@ -1,7 +1,7 @@
 (ns mobile.events
   (:require
    [mobile.spec :as spec]
-   [mobile.const :as const]
+   [mobile.config :as config]
 
    [re-frame.core :as rf]
    [clojure.spec.alpha :as s]))
@@ -34,7 +34,7 @@
 (rf/reg-event-fx
  :auth-submit
  (fn [{:keys [db]} [_ navigation]]
-   (let [form (get-in db const/path-form-auth)
+   (let [form (get-in db config/path-form-auth)
          {:keys [email]} form]
      (if (s/valid? ::spec/form-auth form)
        {:dispatch [:auth-submit-ok navigation email]}
@@ -65,7 +65,7 @@
 (rf/reg-event-fx
  :pin-submit
  (fn [{:keys [db]} [_]]
-   (let [form (get-in db const/path-form-pin)
+   (let [form (get-in db config/path-form-pin)
          {:keys [pin]} form]
      (if (s/valid? ::spec/form-pin form)
        {:dispatch [:pin-submit-ok pin]}
@@ -86,7 +86,7 @@
 (rf/reg-event-db
  :token-obtained
  (fn [db [_ response]]
-   (assoc-in db const/path-token
+   (assoc-in db config/path-token
              (-> response :data :result :secret))))
 
 
@@ -97,7 +97,7 @@
 (rf/reg-event-fx
  :search-submit
  (fn [{:keys [db]} [_]]
-   (let [form (get-in db const/path-form-search)
+   (let [form (get-in db config/path-form-search)
          {:keys [q]} form]
      (if (s/valid? ::spec/form-search form)
        {:dispatch [:search-submit-ok q]}
@@ -110,7 +110,7 @@
   "18b0299c-9f99-4ea0-801e-4db0874bebe4"
 
   #_
-  (-> ctx :db (get-in const/path-token)))
+  (-> ctx :db (get-in config/path-token)))
 
 
 (rf/reg-event-fx
@@ -126,7 +126,7 @@
 (rf/reg-event-db
  :got-search-result
  (fn [db [_ response]]
-   (assoc-in db const/path-remote-search
+   (assoc-in db config/path-remote-search
              (-> response :data :result :data))))
 
 
