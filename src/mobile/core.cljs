@@ -16,12 +16,6 @@
 
    mobile.views.main
 
-   ;; mobile.pages.search
-   ;; mobile.pages.home
-   ;; mobile.pages.main
-   ;; mobile.pages.auth
-   ;; mobile.pages.pin
-
    [reagent.core :as r]))
 
 

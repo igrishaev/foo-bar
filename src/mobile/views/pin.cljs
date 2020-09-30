@@ -38,8 +38,13 @@
    [rn/touchable-opacity
     {:style {:marginTop 40
              :height 50}
-     :on-press (fn []
-                 (rf/dispatch [:pin-submit]))}
+     :on-press
+     (fn []
+
+       (rf/dispatch [:assoc-in config/path-token "AAA"])
+
+       #_
+       (rf/dispatch [:pin-submit]))}
 
     [rn/text {:style {:fontSize 24
                       :textAlign "center"}}

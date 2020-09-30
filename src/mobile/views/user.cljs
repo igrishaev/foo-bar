@@ -19,8 +19,17 @@
                     :alignItems "stretch"}}
 
    [rn/text {:style {:fontSize 24
+                     :textAlign "center"}}
+    "User"]
+
+   [rn/touchable-opacity
+    {:on-press
+     (fn []
+       (rf/dispatch [:assoc-in config/path-token nil]))}
+
+    [rn/text {:style {:fontSize 24
                       :textAlign "center"}}
-     "User"]])
+     "Logout"]]])
 
 
 (def Screen (r/reactify-component screen))

@@ -18,26 +18,12 @@
   [nav/safe-area-provider
    [nav/navigation-container
 
+    (let [token @(rf/subscribe
+                  [:get-in config/path-token])]
 
-    [mobile.views.tab-auth/screen]
-
-    #_
-    [mobile.views.tab-non-auth/screen]
-
-    ]
-
-
-   #_
-   [nav/navigation-container
-    [stack-navigator
-
-     (let [token @(rf/subscribe
-                   [:get-in config/path-token])
-
-           token "aaaaaaa"
-           ]
-
-)]]])
+      (if token
+        [mobile.views.tab-auth/screen]
+        [mobile.views.tab-non-auth/screen]))]])
 
 
 (def Screen (r/reactify-component screen))
