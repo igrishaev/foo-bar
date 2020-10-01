@@ -38,21 +38,20 @@
    (get-screen-height)])
 
 
-
 (defn add-db-listener []
   (.addEventListener
    dimensions
    "change"
    (fn [result]
      (rf/dispatch
-      [:assoc-in
+      [:rn/assoc-in
        config/path-dimensions
        (util/->clj result)]))))
 
 
 (defn trigger-db []
   (rf/dispatch-sync
-   [:assoc-in
+   [:rn/assoc-in
     config/path-dimensions
 
     {:window (-> dimensions

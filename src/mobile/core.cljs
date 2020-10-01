@@ -1,14 +1,15 @@
 (ns mobile.core
   (:require
    [RN.core :as rn]
-   [RN.async-storage :as async-storage]
 
+   RN.async-storage
+   RN.alert
+   RN.log
+   RN.db
    RN.debug
-   RN.effects
-   RN.subs
-   RN.events
+   RN.dimensions
+   RN.flash-message
 
-   mobile.subs
    mobile.events
    mobile.effects
 
@@ -19,6 +20,10 @@
    [reagent.core :as r]))
 
 
+(RN.log/init)
+(RN.debug/init)
+
+
 (def main-page mobile.views.main/screen)
 
 
@@ -26,7 +31,7 @@
   (r/as-element [main-page]))
 
 
-(defn init []
+(defn ^:export init []
   (.registerComponent rn/app-registry
                       config/app-name
                       (fn [] App)))

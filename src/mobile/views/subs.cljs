@@ -76,7 +76,7 @@
 (defn screen [{:keys [navigation]}]
 
   (let [subs @(rf/subscribe
-               [:get-in config/path-remote-subs])
+               [:rn/get-in config/path-remote-subs])
 
         ;; subs SUBS
 

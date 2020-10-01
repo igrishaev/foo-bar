@@ -41,7 +41,7 @@
      :on-press
      (fn []
 
-       (rf/dispatch [:assoc-in config/path-token "AAA"])
+       (rf/dispatch [:rn/assoc-in config/path-token "AAA"])
 
        #_
        (rf/dispatch [:pin-submit]))}

@@ -50,7 +50,7 @@
   (let [;; index (or (.. route -params -index) 0)
 
         subsaaa @(rf/subscribe
-                  [:get-in config/path-remote-subs])
+                  [:rn/get-in config/path-remote-subs])
 
         ;; subs SUBS
 

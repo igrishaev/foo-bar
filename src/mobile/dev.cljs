@@ -11,13 +11,13 @@
 
 
 #_
-(rf/dispatch [:assoc-in [:auth :token] nil])
+(rf/dispatch [:rn/assoc-in [:auth :token] nil])
 
 #_
-(rf/dispatch [:assoc-in [:auth :token] "aaa"])
+(rf/dispatch [:rn/assoc-in [:auth :token] "aaa"])
 
 #_
-(rf/dispatch [:update-in [:remote :subs] (fnil conj []) 1])
+(rf/dispatch [:rn/update-in [:remote :subs] (fnil conj []) 1])
 
 
 #_

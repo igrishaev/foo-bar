@@ -32,7 +32,7 @@
 
 
 (defn dump-db []
-  (rf/dispatch [::rn/dump-db]))
+  (rf/dispatch [:rn/dump-db]))
 
 
 (rf/reg-fx
@@ -42,6 +42,6 @@
 
 
 (rf/reg-event-db
- ::rn/dump-db
+ :rn/dump-db
  (fn [db _]
    {:rn/debug db}))

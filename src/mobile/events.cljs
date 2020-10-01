@@ -14,17 +14,19 @@
 (rf/reg-event-fx
  :rpc-http-error
  (fn [_ [_ input response]]
-   {:debug {:message "RPC response was non-200"
-            :input input
-            :response response}}))
+   {:rn/debug
+    {:message "RPC response was non-200"
+     :input input
+     :response response}}))
 
 
 (rf/reg-event-fx
  :rpc-failure
  (fn [_ [_ input error]]
-   {:debug {:message "RPC response failed"
-            :input input
-            :err error}}))
+   {:rn/debug
+    {:message "RPC response failed"
+     :input input
+     :err error}}))
 
 
 ;;
@@ -38,7 +40,7 @@
          {:keys [email]} form]
      (if (s/valid? ::spec/form-auth form)
        {:dispatch [:auth-submit-ok navigation email]}
-       {:show-message
+       {:rn/show-message
         {:type "danger"
          :message "Wrong email"
          :description "We could not recognize an email address in your input."}}))))
@@ -70,7 +72,7 @@
          {:keys [pin]} form]
      (if (s/valid? ::spec/form-pin form)
        {:dispatch [:pin-submit-ok pin]}
-       {:show-message
+       {:rn/show-message
         {:type "danger"
          :message "Wrong PIN"
          :description "We could not recognize a PIN code in your input."}}))))

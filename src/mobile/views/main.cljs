@@ -21,7 +21,7 @@
    [nav/navigation-container
 
     (let [token @(rf/subscribe
-                  [:get-in config/path-token])
+                  [:rn/get-in config/path-token])
 
           token "aaaaaaa"
 
