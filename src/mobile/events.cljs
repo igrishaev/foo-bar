@@ -103,7 +103,7 @@
          {:keys [q]} form]
      (if (s/valid? ::spec/form-search form)
        {:dispatch [:search-submit-ok q]}
-       {:alert
+       {:rn/alert
         ["Wrong query"
          "We could not recognize a query in your input."]}))))
 

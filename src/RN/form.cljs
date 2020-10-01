@@ -5,12 +5,11 @@
 
 (defn setter [path field]
   (fn [value]
-    (rf/dispatch [:form-input
-                  (conj path field)
-                  value])))
+    (rf/dispatch
+     [:rn/form-input (conj path field) value])))
 
 
 (rf/reg-event-db
- :form-input
+ :rn/form-input
  (fn [db [_ full-path value]]
    (assoc-in db full-path value)))

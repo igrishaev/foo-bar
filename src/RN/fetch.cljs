@@ -1,4 +1,6 @@
-(ns RN.fetch)
+(ns RN.fetch
+  (:require
+   [RN.util :as util]))
 
 
 (defn response-json? [headers]
@@ -11,12 +13,7 @@
   (-> response
       .-headers
       .-map
-      (js->clj :keywordize-keys true)))
-
-
-;; TODO: keep names
-(defn clj->json [data]
-  (some-> data clj->js js/JSON.stringify))
+      util/->clj))
 
 
 (defn fetch [url & [opt]]
@@ -30,7 +27,7 @@
 
               (some? data)
               (->
-               (assoc :body (clj->json data))
+               (assoc :body (util/->json data))
                (assoc-in [:headers :content-type]
                          "application/json")))]
 

@@ -1,6 +1,11 @@
 (ns RN.alert
+  "
+  https://reactnative.dev/docs/alert
+  "
   (:require
    [react-native :as rn]
+
+   [re-frame.core :as rf]
 
    [clojure.set :as set]))
 
@@ -18,3 +23,9 @@
    title message
    (some-> buttons remap-buttons clj->js)
    (some-> opt clj->js)))
+
+
+(rf/reg-fx
+ :rn/alert
+ (fn [[title & args]]
+   (apply alert title args)))

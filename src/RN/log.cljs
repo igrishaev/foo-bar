@@ -1,5 +1,6 @@
 (ns RN.log
   "
+  Logging facilites.
   https://lambdaisland.com/blog/2019-06-10-goog-log
   "
   (:import [goog.log Level Logger]
@@ -13,10 +14,7 @@
    [goog.debug.Console :as Console]
 
    [goog.debug :as debug]
-   [goog.log :as log]
-   [goog.debug.LogManager :as LogManager]
-
-   [cljs.pprint :as pprint]))
+   [goog.log :as log]))
 
 
 (defonce console (new Console))
@@ -48,20 +46,30 @@
 
 (defn get-logger
   [name]
-
-  (let [^Logger logger (log/getLogger name)]
-    (fn [^Keyword level
-         ^js/String template
-         & args]
-      (let [^Level level (->google-level level)]
-        (log/log logger level
-                 (apply format template args))))))
+  (let [logger (log/getLogger name)]
+    (fn [level template & args]
+      (log/log logger
+               (->google-level level)
+               (apply format template args)))))
 
 
-(defn debug [data]
-  (js/console.log
-   (with-out-str
-     (println)
-     (println "--------------")
-     (pprint/pprint data)
-     (println "--------------"))))
+(defn init []
+  (set-console-capturing true))
+
+
+;;
+;; Usage
+;;
+
+#_
+(comment
+
+  ;; get a logger for the current namespace
+  (def log (-> ::_ namespace log/get-logger))
+
+  (log :info "Some event, item: %s, count: %s"
+       user-id (count data))
+
+  (log :info :err|error :warn|warning ...)
+
+  )

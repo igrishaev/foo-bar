@@ -6,7 +6,14 @@
 
 (def format gstring/format)
 
-(def enumerate (partial map-indexed vector))
+
+(def enumerate
+  (partial map-indexed vector))
+
 
 (defn ->clj [x]
   (js->clj x :keywordize-keys true))
+
+
+(defn ->json [x]
+  (some-> data clj->js js/JSON.stringify))

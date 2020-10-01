@@ -1,45 +1,47 @@
 (ns RN.debug
   (:require
-   [RN.log :as log]
-
    [re-frame.core :as rf]
 
    [cljs.pprint :as pprint]))
 
 
-(def log (-> ::_ namespace log/get-logger))
+(defn debug [data]
+  (js/console.log
+   (with-out-str
+     (println)
+     (println "--------------")
+     (pprint/pprint data)
+     (println "--------------"))))
 
 
-(def event-debugger
+(def rf-event-debugger
   (rf/->interceptor
    :id ::event-debugger
    :before
    (fn [context]
-     (log :debug "Event: %s"
-          (-> context :coeffects :event pr-str))
+     (debug (-> context :coeffects :event))
      context)))
 
 
-(defn reg-re-frame-event-debugger []
-  (rf/reg-global-interceptor event-debugger))
+(defn set-re-frame-event-debugger []
+  (rf/reg-global-interceptor rf-event-debugger))
 
 
 (defn init []
-  (log/set-console-capturing true)
-  (reg-re-frame-event-debugger))
-
-
-(rf/reg-event-fx
- ::dump-db
- (fn [{:keys [db]} [_]]
-   {:debug db}))
+  (set-re-frame-event-debugger))
 
 
 (defn dump-db []
-  (rf/dispatch [::dump-db]))
+  (rf/dispatch [::rn/dump-db]))
 
 
-#_
-(RN.debug/dump-db)
+(rf/reg-fx
+ :rn/debug
+ (fn [data]
+   (debug data)))
 
-(init)
+
+(rf/reg-event-db
+ ::rn/dump-db
+ (fn [db _]
+   {:rn/debug db}))

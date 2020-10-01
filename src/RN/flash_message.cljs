@@ -32,12 +32,12 @@
 
 
 (rf/reg-fx
- :show-message
+ :rn/show-message
  (fn [message]
    (show-message message)))
 
 
 (rf/reg-fx
- :hide-message
+ :rn/hide-message
  (fn [message]
    (hide-message)))
