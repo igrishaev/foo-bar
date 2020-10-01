@@ -5,6 +5,8 @@
 
    [mobile.rpc :as rpc]
 
+   [re-frame.core :as rf]
+
    ))
 
 
@@ -13,6 +15,9 @@
 
 #_
 (rf/dispatch [:assoc-in [:auth :token] "aaa"])
+
+#_
+(rf/dispatch [:update-in [:remote :subs] (fnil conj []) 1])
 
 
 #_

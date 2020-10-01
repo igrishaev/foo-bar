@@ -17,6 +17,15 @@
 
 (defn screen [i message]
 
+  [rn/view
+
+   [rn/text {:style {:fontSize 18}}
+
+    (str (str i) (str message))
+    ;; "AAAAAAA"
+    ]]
+
+  #_
   (let [{entry :message/entry} message
         {entry-title :entry/title
          entry-link :entry/link} entry]

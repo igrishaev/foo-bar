@@ -47,39 +47,50 @@
 (defn screen [{:keys [route
                       navigation]}]
 
-  (let [index (or (.. route -params -index) 0)
+  (let [;; index (or (.. route -params -index) 0)
 
-        ;; subs @(rf/subscribe
-        ;;        [:get-in config/path-remote-subs])
+        subsaaa @(rf/subscribe
+                  [:get-in config/path-remote-subs])
 
         ;; subs SUBS
 
-        entries ENTRIES
+        ;; entries ENTRIES
+        ;; entries nil
+
+        ;; entries subs
+
+        entries subsaaa
 
         ]
 
+    (println entries)
+
     [swiper
 
-     {:horizontal true
+     {
+      :horizontal true
       :loop false
       ;; :showsButtons false
       ;; :showsPagination false
       :autoplay false
-      :onIndexChanged (fn [index]
-                        (println index))
 
-      :index index
+      ;; :onIndexChanged (fn [index]
+      ;;                   (println index))
+
+      ;; :index index
 
       :loadMinimal true
-      :loadMinimalSize 1
-      :bounces true
+      :loadMinimalSize 5
+      ;; :bounces true
 
       }
 
      (for [[i entry] (util/enumerate entries)
-           :let [{entry-id :db/id} entry]]
+           ;; :let [{entry-id :db/id} entry]
+           ]
 
-       ^{:key entry-id}
+       ;; ^{:key entry-id}
+       ^{:key (str entry)}
        [mobile.views.entry/screen i entry])]))
 
 

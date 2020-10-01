@@ -3,6 +3,7 @@
    [RN.core :as rn]
    [RN.util :as util]
    [RN.nav :as nav]
+   [RN.dimensions :as dim]
 
    [mobile.style :as style]
    [mobile.config :as config]
@@ -50,13 +51,17 @@
 
 (defn render-item [input]
 
-  (let [item (.-item input)
+  (let [width (dim/get-window-width)
+
+        item (.-item input)
         index (.-index input)
 
         {:keys [title]} item]
 
     (r/as-element
-     [rn/view {:style {:height 100}}
+     [rn/view {:style {:width width
+                       ;; :height 100
+                       }}
       [rn/text "AAAAA"]])))
 
 
@@ -69,7 +74,7 @@
   (let [subs @(rf/subscribe
                [:get-in config/path-remote-subs])
 
-        subs SUBS
+        ;; subs SUBS
 
         ]
 
@@ -87,6 +92,14 @@
        ;; rn/flat-list
 
        {:data #js []
+        :onScrollEndDrag (fn []
+                           (println "onScrollEndDrag"))
+
+
+
+        :horizontal true
+        :pagingEnabled true
+
         :initialNumToRender 5
         :keyExtractor key-extractor
         :getItemCount get-item-count
