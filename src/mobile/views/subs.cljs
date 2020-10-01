@@ -1,4 +1,8 @@
 (ns mobile.views.subs
+  "
+  https://github.com/filipemerker/flatlist-performance-tips
+  https://reactnative.dev/docs/optimizing-flatlist-configuration
+  "
   (:require
    [RN.core :as rn]
    [RN.util :as util]
@@ -95,12 +99,15 @@
         :onScrollEndDrag (fn []
                            (println "onScrollEndDrag"))
 
-
+        :removeClippedSubviews true
+        :initialNumToRender 2
+        :maxToRenderPerBatch 1
+        :updateCellsBatchingPeriod 100
+        :windowSize 7
 
         :horizontal true
         :pagingEnabled true
 
-        :initialNumToRender 5
         :keyExtractor key-extractor
         :getItemCount get-item-count
         :getItem get-item
