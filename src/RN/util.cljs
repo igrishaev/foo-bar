@@ -16,4 +16,4 @@
 
 
 (defn ->json [x]
-  (some-> data clj->js js/JSON.stringify))
+  (some-> x clj->js js/JSON.stringify))

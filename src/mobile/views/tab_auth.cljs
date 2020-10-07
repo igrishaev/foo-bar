@@ -34,12 +34,6 @@
 
    [:<>
 
-    #_
-    [tab-screen
-     {:name "tab-subs"
-      :component mobile.views.swiper/Screen
-      :options #js {:title "Swiper"}}]
-
     [tab-screen
      {:name "tab-subs"
       :component mobile.views.stack-subs/Screen

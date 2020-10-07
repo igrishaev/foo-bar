@@ -1,18 +1,8 @@
 (ns mobile.rpc
   (:require
-   [RN.fetch :as fetch]))
+   [RN.fetch :as fetch]
 
-;; work
-(def base-url "http://192.168.31.102:8088/rpc")
-
-;; router
-;; (def base-url "http://192.168.1.100:8088/rpc")
-
-;; home
-;; (def base-url "http://192.168.0.26:8088/rpc")
-
-
-(def max-id 1000)
+   [mobile.config :as config]))
 
 
 (defn call
@@ -21,7 +11,7 @@
            method
            params]}]
 
-  (let [id (rand-int max-id)
+  (let [id (rand-int config/rpc-max-id)
 
         data (cond-> {:jsonrpc "2.0"
                       :method method
@@ -35,6 +25,8 @@
 
               token
               (assoc-in [:headers :authorization]
-                        (str "Bearer " token)))]
+                        (str "Bearer " token)))
 
-    (fetch/fetch base-url opt)))
+        url (str config/base-url "/rpc")]
+
+    (fetch/fetch url opt)))

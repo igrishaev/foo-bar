@@ -41,7 +41,7 @@
    (debug data)))
 
 
-(rf/reg-event-db
+(rf/reg-event-fx
  :rn/dump-db
- (fn [db _]
+ (fn [{:keys [db]} _]
    {:rn/debug db}))
