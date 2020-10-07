@@ -3,6 +3,9 @@
    [RN.core :as rn]
    [RN.form :as form]
    [RN.util :as util]
+   [RN.dimensions :as dim]
+   [RN.webview :refer [web-view]]
+   [RN.linking :as linking]
 
    [mobile.style :as style]
    [mobile.config :as config]
@@ -11,23 +14,50 @@
    [reagent.core :as r]))
 
 
-(defn render-item [input]
+(defn on-message [entry]
 
-  (let [
-        ;; width (dim/get-window-width)
+  (let [{:keys [link]} entry]
 
-        entry (.. input -item)
-        index (.. input -index)
+    (fn [event]
 
-        {:keys [title]} entry
+      (let [data (.. event -nativeEvent -data)]
+        (case data
+
+          ("h:title" "btn:visit_page")
+          (linking/open-url link)
+
+          ;; TODO: better logging
+          ;; else
+          (println data))))))
+
+
+(defn entry-item [entry]
+
+  ;; todo: width
+  (let [width (dim/get-window-width)
+
+        {entry-id :id} entry
+
+        url (str config/base-url "/preview?entry-id="entry-id)
 
         ]
 
+    [rn/view {:style {:width width}}
+
+     [web-view
+
+      {:onMessage (on-message entry)
+       :originWhitelist #js ["*"]
+       :source {:uri url}}]]))
+
+
+(defn render-item [input]
+
+  (let [entry (.. input -item)
+        index (.. input -index)]
+
     (r/as-element
-     [rn/view {:style {:width 300
-                       ;; :height 100
-                       }}
-      [rn/text title]])))
+     [entry-item entry])))
 
 
 (defn screen [{:keys [route
