@@ -149,7 +149,9 @@
  ::rpc-preview-ok
  (fn [{:keys [db]} [_ i feed-id navigation response]]
 
-   (.navigate navigation "feed-preview")
+   (.navigate navigation "feed-preview"
+              #js {:i i
+                   :feed_id feed-id})
 
    {:db (assoc-in db
                   (into config/path-remote-search [i :entries])
