@@ -8,11 +8,9 @@
 
    mobile.views.stack-subs
 
-   mobile.views.search
    mobile.views.user
    mobile.views.about
-
-   mobile.views.swiper
+   mobile.views.stack-search
 
    [re-frame.core :as rf]
    [reagent.core :as r]))
@@ -41,7 +39,7 @@
 
     [tab-screen
      {:name "tab-search"
-      :component mobile.views.search/Screen
+      :component mobile.views.stack-search/Screen
       :options #js {:title "Search"}}]
 
     [tab-screen
